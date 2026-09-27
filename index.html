@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>هواشناسی ارومیه</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Tahoma,Arial,sans-serif;
+    background:#071522;
+    color:white;
+}
+
+.container{
+    width:92%;
+    max-width:700px;
+    margin:50px auto;
+}
+
+.header{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.header h1{
+    margin:0;
+    font-size:28px;
+}
+
+.header p{
+    color:#8fa6ba;
+    margin-top:10px;
+}
+
+.live{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    margin-top:15px;
+    padding:7px 12px;
+    border-radius:20px;
+    background:#10283d;
+    color:#72d7ff;
+    font-size:12px;
+}
+
+.dot{
+    width:8px;
+    height:8px;
+    background:#31dc86;
+    border-radius:50%;
+    box-shadow:0 0 10px #31dc86;
+}
+
+.main{
+    background:#0d2235;
+    border:1px solid #193850;
+    border-radius:25px;
+    padding:30px 20px;
+    text-align:center;
+}
+
+.city{
+    color:#7e9ab0;
+    font-size:14px;
+}
+
+.temperature{
+    font-size:90px;
+    font-weight:bold;
+    margin:15px 0;
+}
+
+.temperature span{
+    font-size:35px;
+    color:#8fa8bc;
+}
+
+.condition{
+    color:#a9bfd0;
+    margin-bottom:30px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.card{
+    background:#102b42;
+    border-radius:18px;
+    padding:22px 10px;
+}
+
+.icon{
+    font-size:30px;
+}
+
+.title{
+    color:#8ea8bc;
+    font-size:13px;
+    margin-top:10px;
+}
+
+.number{
+    font-size:28px;
+    font-weight:bold;
+    margin-top:8px;
+}
+
+.unit{
+    color:#7890a4;
+    font-size:12px;
+}
+
+.updated{
+    margin-top:22px;
+    color:#607a90;
+    font-size:11px;
+}
+
+.error{
+    margin-top:15px;
+    color:#ff9b73;
+    font-size:12px;
+}
+
+@media(max-width:450px){
+
+    .container{
+        margin:25px auto;
+    }
+
+    .temperature{
+        font-size:75px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>🌤️ هواشناسی ارومیه</h1>
+
+        <p>
+            دما، رطوبت و کیفیت هوای زنده
+        </p>
+
+        <div class="live">
+            <span class="dot"></span>
+            اطلاعات زنده
+        </div>
+
+    </div>
+
+
+    <div class="main">
+
+        <div class="city">
+            📍 ارومیه، آذربایجان غربی
+        </div>
+
+
+        <div class="temperature">
+            <span id="temp">--</span>
+            <span>°C</span>
+        </div>
+
+
+        <div
+            class="condition"
+            id="condition">
+            در حال دریافت اطلاعات...
+        </div>
+
+
+        <div class="cards">
+
+
+            <!-- رطوبت -->
+
+            <div class="card">
+
+                <div class="icon">
+                    💧
+                </div>
+
+                <div class="title">
+                    رطوبت هوا
+                </div>
+
+                <div class="number">
+
+                    <span id="humidity">
+                        --
+                    </span>
+
+                    <span class="unit">
+                        %
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- آلودگی -->
+
+            <div class="card">
+
+                <div class="icon">
+                    🌫️
+                </div>
+
+                <div class="title">
+                    آلودگی هوا
+                </div>
+
+                <div class="number">
+
+                    <span id="aqi">
+                        --
+                    </span>
+
+                    <span class="unit">
+                        AQI
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- PM2.5 -->
+
+            <div class="card">
+
+                <div class="icon">
+                    🫁
+                </div>
+
+                <div class="title">
+                    ذرات PM2.5
+                </div>
+
+                <div class="number">
+
+                    <span id="pm25">
+                        --
+                    </span>
+
+                    <span class="unit">
+                        µg/m³
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- احساس دما -->
+
+            <div class="card">
+
+                <div class="icon">
+                    🌡️
+                </div>
+
+                <div class="title">
+                    دمای احساسی
+                </div>
+
+                <div class="number">
+
+                    <span id="feels">
+                        --
+                    </span>
+
+                    <span class="unit">
+                        °C
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="updated"
+            id="updated">
+            در حال اتصال...
+        </div>
+
+        <div
+            class="error"
+            id="error">
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/*
+========================================
+مختصات ارومیه
+========================================
+*/
+
+const LAT = 37.5553;
+const LON = 45.0724;
+
+
+/*
+========================================
+API هوا
+========================================
+*/
+
+const WEATHER_API =
+"https://api.open-meteo.com/v1/forecast" +
+"?latitude=" + LAT +
+"&longitude=" + LON +
+"&current=" +
+"temperature_2m," +
+"relative_humidity_2m," +
+"apparent_temperature," +
+"weather_code" +
+"&timezone=Asia%2FTehran";
+
+
+/*
+========================================
+API آلودگی
+========================================
+*/
+
+const AIR_API =
+"https://air-quality-api.open-meteo.com/v1/air-quality" +
+"?latitude=" + LAT +
+"&longitude=" + LON +
+"&current=" +
+"pm2_5," +
+"european_aqi" +
+"&timezone=Asia%2FTehran";
+
+
+/*
+========================================
+توضیح وضعیت هوا
+========================================
+*/
+
+function weatherText(code){
+
+    if(code === 0)
+        return "آسمان صاف ☀️";
+
+    if(code === 1)
+        return "عمدتاً صاف 🌤️";
+
+    if(code === 2)
+        return "نیمه ابری ⛅";
+
+    if(code === 3)
+        return "ابری ☁️";
+
+    if(code >= 51 && code <= 67)
+        return "بارانی 🌧️";
+
+    if(code >= 71 && code <= 77)
+        return "برفی ❄️";
+
+    if(code >= 80 && code <= 82)
+        return "رگبار 🌧️";
+
+    if(code >= 95)
+        return "رعد و برق ⛈️";
+
+    return "وضعیت نامشخص";
+
+}
+
+
+/*
+========================================
+گرفتن اطلاعات
+========================================
+*/
+
+async function loadData(){
+
+    const error =
+        document.getElementById("error");
+
+    error.textContent = "";
+
+    try{
+
+        /*
+        دو API جداگانه
+        */
+
+        const weatherPromise =
+            fetch(WEATHER_API)
+            .then(response => {
+
+                if(!response.ok)
+                    throw new Error("weather");
+
+                return response.json();
+
+            });
+
+
+        const airPromise =
+            fetch(AIR_API)
+            .then(response => {
+
+                if(!response.ok)
+                    throw new Error("air");
+
+                return response.json();
+
+            });
+
+
+        /*
+        هر دو همزمان دریافت می‌شوند
+        */
+
+        const [
+            weather,
+            air
+        ] =
+        await Promise.all([
+            weatherPromise,
+            airPromise
+        ]);
+
+
+        /*
+        اطلاعات هوا
+        */
+
+        const current =
+            weather.current;
+
+
+        document.getElementById("temp")
+            .textContent =
+            Math.round(
+                current.temperature_2m
+            );
+
+
+        document.getElementById("humidity")
+            .textContent =
+            Math.round(
+                current.relative_humidity_2m
+            );
+
+
+        document.getElementById("feels")
+            .textContent =
+            Math.round(
+                current.apparent_temperature
+            );
+
+
+        document.getElementById("condition")
+            .textContent =
+            weatherText(
+                current.weather_code
+            );
+
+
+        /*
+        آلودگی
+        */
+
+        document.getElementById("pm25")
+            .textContent =
+            Number(
+                air.current.pm2_5
+            ).toFixed(1);
+
+
+        document.getElementById("aqi")
+            .textContent =
+            Math.round(
+                air.current.european_aqi
+            );
+
+
+        /*
+        زمان بروزرسانی
+        */
+
+        document.getElementById("updated")
+            .textContent =
+            "آخرین بروزرسانی: " +
+            new Date().toLocaleTimeString(
+                "fa-IR"
+            );
+
+
+    }
+    catch(error){
+
+        console.log(error);
+
+        document.getElementById("error")
+            .textContent =
+            "اتصال به سرویس اطلاعاتی برقرار نشد. اینترنت را بررسی کنید.";
+
+        document.getElementById("updated")
+            .textContent =
+            "خطا در دریافت اطلاعات";
+
+    }
+
+}
+
+
+/*
+========================================
+اجرای اولیه
+========================================
+*/
+
+loadData();
+
+
+/*
+========================================
+بروزرسانی هر ۵ دقیقه
+========================================
+*/
+
+setInterval(
+    loadData,
+    5 * 60 * 1000
+);
+
+</script>
+
+</body>
+  </html>
