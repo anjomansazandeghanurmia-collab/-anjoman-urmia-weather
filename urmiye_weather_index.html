@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>انجمن سازندگان ذیصلاح ساختمان شهرستان ارومیه</title>
+<style>
+body{margin:0;font-family:tahoma;background:#f1f5f9;color:#1e293b}
+.header{background:linear-gradient(135deg,#111827,#334155);color:white;padding:25px;text-align:center}
+.container{max-width:1100px;margin:auto;padding:20px}
+.box,.card,.day{background:white;border-radius:20px;padding:20px;box-shadow:0 10px 30px #0001;margin-bottom:20px;animation:up .8s}
+.main{display:flex;justify-content:space-between;align-items:center}
+.icon{font-size:70px;animation:float 3s infinite}
+.temp{font-size:55px;color:#2563eb;font-weight:bold}
+.items{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
+.card{text-align:center}
+.value{font-size:25px;color:#059669;font-weight:bold}
+.day{display:flex;justify-content:space-between}
+.status{background:#dcfce7;color:#166534;padding:10px 20px;border-radius:30px}
+@keyframes up{from{opacity:0;transform:translateY(30px)}to{opacity:1}}
+@keyframes float{50%{transform:translateY(-10px)}}
+@media(max-width:600px){.main{flex-direction:column}.day{flex-direction:column;gap:8px}}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>انجمن سازندگان ذیصلاح ساختمان شهرستان ارومیه</h1>
+<p>سامانه هوشمند هواشناسی</p>
+</div>
+<div class="container">
+<div class="box main">
+<div>
+<h2>ارومیه</h2>
+<h3>دمای فعلی</h3>
+<div class="temp" id="temp">--°</div>
+<p>رطوبت: <span id="humidity">--</span>%</p>
+<p>باد: <span id="wind">--</span> km/h</p>
+<div class="status">شاخص هوا: قابل قبول</div>
+</div>
+<div class="icon">🌤️</div>
+</div>
+<div class="items">
+<div class="card">💨 باد<div class="value" id="wind2">--</div></div>
+<div class="card">💧 رطوبت<div class="value" id="hum2">--</div></div>
+<div class="card">🌧️ بارش<div class="value" id="rain">--</div></div>
+<div class="card">🌫️ آلودگی<div class="value">قابل قبول</div></div>
+</div>
+<h2>پیش‌بینی روزهای آینده</h2>
+<div id="forecast"></div>
+</div>
+<script>
+async function loadWeather(){
+const url="https://api.open-meteo.com/v1/forecast?latitude=37.5527&longitude=45.0761&current=temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation&daily=temperature_2m_max,precipitation_sum,wind_speed_10m_max&timezone=auto";
+const d=await fetch(url).then(r=>r.json());
+temp.innerHTML=Math.round(d.current.temperature_2m)+"°";
+humidity.innerHTML=d.current.relative_humidity_2m;
+hum2.innerHTML=d.current.relative_humidity_2m+"%";
+wind.innerHTML=Math.round(d.current.wind_speed_10m);
+wind2.innerHTML=Math.round(d.current.wind_speed_10m)+" km/h";
+rain.innerHTML=d.current.precipitation+" mm";
+let h="";
+for(let i=0;i<7;i++) h+=`<div class="day"><span>روز ${i+1}</span><span>🌤️ ${Math.round(d.daily.temperature_2m_max[i])}°</span><span>💨 ${Math.round(d.daily.wind_speed_10m_max[i])} km/h</span><span>🌧️ ${d.daily.precipitation_sum[i]} mm</span></div>`;
+forecast.innerHTML=h;
+}
+loadWeather();
+setInterval(loadWeather,1800000);
+</script>
+</body>
+</html>
