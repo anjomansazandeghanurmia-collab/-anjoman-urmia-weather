@@ -4,62 +4,42 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>سامانه هوشمند هواشناسی انجمن ارومیه</title>
-
-<meta name="description"
-content="سامانه هوشمند هواشناسی اختصاصی انجمن ارومیه">
+<title>هواشناسی انجمن ارومیه | رادار زنده</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link
-href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap"
-rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+<!-- Leaflet -->
 <link
 rel="stylesheet"
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
->
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+/>
 
 <style>
 
-/* =========================================================
-   تنظیمات اصلی
-========================================================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+:root{
+    --bg:#06101c;
+    --bg2:#091a2b;
+    --panel:rgba(13,31,51,.88);
+    --panel2:rgba(18,42,68,.8);
+    --border:rgba(255,255,255,.09);
+    --text:#f4f8fc;
+    --muted:#91a6bb;
+    --blue:#2ca7ff;
+    --cyan:#40ddff;
+    --green:#32d583;
+    --yellow:#ffc857;
+    --orange:#ff8b3d;
+    --red:#ff4d67;
+    --purple:#9b6cff;
 }
 
-:root{
-
-    --green:#16a34a;
-    --green-dark:#087f3d;
-    --green-light:#eaf8ef;
-
-    --blue:#0ea5e9;
-    --blue-dark:#0369a1;
-
-    --yellow:#f59e0b;
-    --orange:#f97316;
-    --red:#ef4444;
-
-    --purple:#8b5cf6;
-
-    --bg:#f3f7f4;
-    --card:#ffffff;
-
-    --text:#102217;
-    --muted:#6b7b70;
-
-    --border:#e1ebe4;
-
-    --shadow:
-    0 12px 35px rgba(16,34,23,.08);
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 html{
@@ -67,976 +47,848 @@ html{
 }
 
 body{
-
-    font-family:
-    "Vazirmatn",
-    Tahoma,
-    Arial,
-    sans-serif;
-
-    background:
-
-    radial-gradient(
-        circle at 90% 0%,
-        rgba(22,163,74,.12),
-        transparent 30%
-    ),
-
-    linear-gradient(
-        180deg,
-        #eef8f1,
-        #f7faf8
-    );
-
+    min-height:100vh;
+    font-family:"Vazirmatn",Tahoma,sans-serif;
     color:var(--text);
 
-    min-height:100vh;
+    background:
+        radial-gradient(circle at 5% 5%,rgba(44,167,255,.15),transparent 28%),
+        radial-gradient(circle at 95% 10%,rgba(64,221,255,.09),transparent 25%),
+        linear-gradient(145deg,var(--bg),var(--bg2));
 }
 
-
-/* =========================================================
-   کانتینر
-========================================================= */
+button,
+select{
+    font-family:inherit;
+}
 
 .container{
-
-    width:100%;
-
-    max-width:1400px;
-
+    width:min(1450px,94%);
     margin:auto;
-
-    padding:20px;
 }
 
+/* HEADER */
 
-/* =========================================================
-   هدر
-========================================================= */
+header{
+    padding:24px 0 18px;
+}
 
 .header{
-
-    background:#fff;
-
-    border:
-    1px solid var(--border);
-
-    border-radius:25px;
-
-    padding:14px 18px;
-
     display:flex;
-
-    align-items:center;
-
     justify-content:space-between;
-
+    align-items:center;
     gap:20px;
-
-    box-shadow:var(--shadow);
-
-    position:relative;
-
-    z-index:10;
+    flex-wrap:wrap;
 }
 
 .brand{
-
     display:flex;
-
     align-items:center;
-
-    gap:15px;
+    gap:14px;
 }
-
-
-/* =========================================================
-   لوگوی اختصاصی داخل خود کد
-========================================================= */
 
 .logo{
-
-    width:75px;
-
-    height:75px;
-
-    flex:none;
-
-    border-radius:50%;
-
-    background:white;
-
-    border:3px solid #dff2e5;
-
-    box-shadow:
-    0 5px 20px rgba(0,0,0,.08);
-}
-
-.brand-text h1{
-
-    font-size:21px;
-
-    font-weight:900;
-
-    margin-bottom:5px;
-}
-
-.brand-text p{
-
-    color:var(--muted);
-
-    font-size:12px;
-}
-
-
-/* =========================================================
-   وضعیت آنلاین
-========================================================= */
-
-.header-status{
-
-    display:flex;
-
-    gap:8px;
-
-    flex-wrap:wrap;
-}
-
-.status{
-
-    padding:
-    9px
-    13px;
-
-    border-radius:50px;
-
-    background:#edf9f0;
-
-    color:var(--green-dark);
-
-    font-size:11px;
-
-    font-weight:800;
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero{
-
-    margin-top:18px;
-
-    border-radius:30px;
-
-    padding:30px;
-
-    color:#fff;
-
-    background:
-
-    radial-gradient(
-        circle at 90% 10%,
-        rgba(255,255,255,.20),
-        transparent 30%
-    ),
-
-    linear-gradient(
-        135deg,
-        #087f3d,
-        #16a34a
-    );
-
-    box-shadow:
-    0 20px 50px rgba(8,127,61,.25);
+    width:58px;
+    height:58px;
 
     display:grid;
+    place-items:center;
 
-    grid-template-columns:
-    1.3fr
-    .7fr;
+    border-radius:18px;
 
-    gap:30px;
-
-    overflow:hidden;
-
-    position:relative;
-}
-
-.hero::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:300px;
-
-    height:300px;
-
-    border-radius:50%;
+    font-size:30px;
 
     background:
-    rgba(255,255,255,.05);
+        linear-gradient(135deg,#0879d7,#42ddff);
 
-    left:-100px;
-
-    bottom:-150px;
+    box-shadow:
+        0 10px 35px rgba(44,167,255,.28);
 }
 
-.location{
-
-    font-size:13px;
-
-    opacity:.9;
-
-    margin-bottom:10px;
-}
-
-.hero-title{
-
-    font-size:33px;
-
+.brand h1{
+    font-size:clamp(19px,3vw,29px);
     font-weight:900;
-
-    margin-bottom:10px;
 }
 
-.hero-description{
-
-    font-size:14px;
-
-    line-height:2;
-
-    opacity:.93;
-
-    max-width:700px;
-}
-
-.temperature{
-
-    font-size:78px;
-
-    line-height:1;
-
-    font-weight:900;
-
-    margin-bottom:12px;
-}
-
-.weather-info{
-
+.brand p{
+    color:var(--muted);
     font-size:12px;
-
-    line-height:1.9;
-
-    opacity:.95;
+    margin-top:4px;
 }
 
-
-/* =========================================================
-   دکمه‌ها
-========================================================= */
-
-.hero-buttons{
-
+.header-right{
     display:flex;
-
+    gap:10px;
+    align-items:center;
     flex-wrap:wrap;
+}
 
+.live{
+    display:flex;
+    align-items:center;
     gap:9px;
 
-    margin-top:20px;
-}
-
-.btn{
-
-    border:none;
-
-    cursor:pointer;
+    padding:10px 14px;
 
     border-radius:13px;
 
-    padding:
-    11px
-    16px;
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--border);
 
-    font-family:inherit;
+    font-size:13px;
+}
 
-    font-size:11px;
+.live-dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 15px var(--green);
 
-    font-weight:800;
+    animation:pulse 1.5s infinite;
+}
 
-    color:#fff;
+@keyframes pulse{
+    50%{
+        opacity:.35;
+        transform:scale(.7);
+    }
+}
 
-    background:
-    rgba(255,255,255,.15);
+.btn{
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.045);
+    color:white;
 
-    border:
-    1px solid
-    rgba(255,255,255,.25);
+    padding:10px 14px;
+
+    border-radius:12px;
+
+    cursor:pointer;
 
     transition:.2s;
 }
 
 .btn:hover{
-
-    transform:
-    translateY(-2px);
-
-    background:
-    rgba(255,255,255,.28);
+    background:rgba(44,167,255,.13);
+    border-color:rgba(44,167,255,.4);
 }
 
+/* HERO */
 
-/* =========================================================
-   کارت‌های اطلاعات
-========================================================= */
-
-.cards{
-
+.hero{
     display:grid;
+    grid-template-columns:1.2fr .8fr;
 
-    grid-template-columns:
-    repeat(4,1fr);
+    gap:20px;
 
-    gap:14px;
+    padding:26px;
 
-    margin-top:18px;
-}
+    border-radius:27px;
 
-.card{
+    border:1px solid var(--border);
 
     background:
-    var(--card);
+        linear-gradient(
+            120deg,
+            rgba(23,103,167,.26),
+            rgba(8,25,43,.82)
+        );
 
-    border:
-    1px solid
-    var(--border);
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+.location{
+    color:var(--muted);
+    font-size:14px;
+}
+
+.location strong{
+    color:var(--cyan);
+}
+
+.hero-temperature{
+    font-size:clamp(70px,10vw,115px);
+    font-weight:900;
+    line-height:1;
+
+    margin-top:10px;
+}
+
+.hero-temperature small{
+    font-size:.35em;
+    vertical-align:top;
+}
+
+.description{
+    font-size:21px;
+    font-weight:700;
+    margin-top:7px;
+}
+
+.feels{
+    color:var(--muted);
+    margin-top:5px;
+}
+
+.hero-icon{
+    display:grid;
+    place-items:center;
+    font-size:120px;
+}
+
+.hero-bottom{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+
+    margin-top:24px;
+}
+
+.mini{
+    padding:9px 13px;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.04);
+
+    color:#c5d4e2;
+
+    font-size:12px;
+}
+
+/* SECTIONS */
+
+.section{
+    margin-top:25px;
+}
+
+.section-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:19px;
+
+    margin-bottom:13px;
+}
+
+.section-title:before{
+    content:"";
+
+    width:5px;
+    height:22px;
 
     border-radius:20px;
 
+    background:linear-gradient(var(--blue),var(--cyan));
+}
+
+/* CARDS */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:13px;
+}
+
+.card{
+    background:var(--panel);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
     padding:18px;
 
-    box-shadow:
-    0 7px 25px
-    rgba(16,34,23,.06);
+    box-shadow:0 10px 35px rgba(0,0,0,.12);
 
     transition:.2s;
 }
 
 .card:hover{
-
-    transform:
-    translateY(-3px);
-
-    box-shadow:
-    0 12px 30px
-    rgba(16,34,23,.10);
+    transform:translateY(-3px);
+    border-color:rgba(44,167,255,.25);
 }
 
-.card-title{
+.card-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 
     color:var(--muted);
 
     font-size:12px;
-
-    font-weight:700;
-
-    margin-bottom:9px;
 }
 
-.card-value{
+.card-icon{
+    width:39px;
+    height:39px;
 
-    font-size:28px;
+    display:grid;
+    place-items:center;
 
-    font-weight:900;
-}
+    border-radius:11px;
 
-.card-sub{
-
-    margin-top:6px;
-
-    color:var(--muted);
-
-    font-size:10px;
-}
-
-
-/* =========================================================
-   بخش‌ها
-========================================================= */
-
-.section{
-
-    margin-top:23px;
-}
-
-.section-header{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:10px;
-
-    margin-bottom:12px;
-}
-
-.section-header h2{
+    background:rgba(44,167,255,.09);
 
     font-size:20px;
-
-    font-weight:900;
 }
 
-.section-header span{
+.value{
+    font-size:27px;
+    font-weight:900;
 
+    margin-top:15px;
+}
+
+.unit{
+    font-size:12px;
+    font-weight:400;
     color:var(--muted);
-
-    font-size:10px;
 }
 
+/* MAP */
 
-/* =========================================================
-   هشدارها
-========================================================= */
-
-.alert-grid{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(3,1fr);
-
-    gap:13px;
-}
-
-.alert{
-
-    border-radius:18px;
-
-    padding:17px;
-
-    border:1px solid;
-
-    min-height:120px;
-}
-
-.alert-title{
-
-    font-size:14px;
-
-    font-weight:900;
-
-    margin-bottom:7px;
-}
-
-.alert-text{
-
-    color:#5f665f;
-
-    font-size:11px;
-
-    line-height:1.9;
-}
-
-.alert-green{
-
-    background:#effaf2;
-
-    border-color:#b9e5c4;
-}
-
-.alert-yellow{
-
-    background:#fff9e9;
-
-    border-color:#f6d680;
-}
-
-.alert-orange{
-
-    background:#fff1e7;
-
-    border-color:#ffc39b;
-}
-
-.alert-red{
-
-    background:#fff0f0;
-
-    border-color:#f5b2b2;
-}
-
-
-/* =========================================================
-   نمودار
-========================================================= */
-
-.chart-card{
-
-    background:#fff;
-
-    border:
-    1px solid
-    var(--border);
+.map-wrap{
+    position:relative;
 
     border-radius:22px;
 
-    padding:20px;
+    overflow:hidden;
 
-    height:350px;
-}
+    border:1px solid var(--border);
 
-
-/* =========================================================
-   پیش‌بینی
-========================================================= */
-
-.forecast{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(7,1fr);
-
-    gap:9px;
-}
-
-.forecast-card{
-
-    background:#fff;
-
-    border:
-    1px solid
-    var(--border);
-
-    border-radius:18px;
-
-    padding:15px 8px;
-
-    text-align:center;
-
-    transition:.2s;
-}
-
-.forecast-card:hover{
-
-    transform:
-    translateY(-3px);
-}
-
-.forecast-day{
-
-    font-size:11px;
-
-    color:var(--muted);
-
-    font-weight:700;
-}
-
-.forecast-icon{
-
-    font-size:32px;
-
-    margin:
-    12px 0;
-}
-
-.forecast-temp{
-
-    font-size:15px;
-
-    font-weight:900;
-}
-
-.forecast-rain{
-
-    margin-top:7px;
-
-    color:var(--blue);
-
-    font-size:10px;
-}
-
-
-/* =========================================================
-   نقشه
-========================================================= */
-
-.map-card{
-
-    background:#fff;
-
-    border:
-    1px solid
-    var(--border);
-
-    border-radius:22px;
-
-    padding:10px;
+    background:#081522;
 }
 
 #map{
-
+    height:520px;
     width:100%;
-
-    height:460px;
-
-    border-radius:18px;
-
-    overflow:hidden;
 }
 
-.map-description{
+.map-controls{
+    position:absolute;
 
-    padding:9px;
+    top:15px;
+    right:15px;
 
+    z-index:1000;
+
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.map-btn{
+    border:1px solid rgba(255,255,255,.15);
+
+    background:rgba(5,17,29,.9);
+
+    color:white;
+
+    padding:10px 13px;
+
+    border-radius:11px;
+
+    cursor:pointer;
+}
+
+.map-btn.active{
+    background:#117bd0;
+}
+
+.map-info{
+    position:absolute;
+
+    bottom:15px;
+    right:15px;
+
+    z-index:1000;
+
+    background:rgba(5,17,29,.9);
+
+    padding:10px 13px;
+
+    border-radius:11px;
+
+    font-size:11px;
+
+    color:#c7d6e4;
+}
+
+/* RADAR */
+
+.radar-panel{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+    margin-top:12px;
+
+    padding:15px;
+
+    border-radius:15px;
+
+    background:rgba(255,255,255,.035);
+
+    border:1px solid var(--border);
+}
+
+.radar-control{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+input[type=range]{
+    accent-color:var(--blue);
+}
+
+/* AIR */
+
+.air{
+    display:grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap:18px;
+}
+
+.aqi-main{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.aqi-number{
+    font-size:62px;
+    font-weight:900;
+}
+
+.status{
+    padding:7px 13px;
+    border-radius:99px;
+    font-size:12px;
+}
+
+.good{
+    background:rgba(50,213,131,.12);
+    color:var(--green);
+}
+
+.warn{
+    background:rgba(255,200,87,.12);
+    color:var(--yellow);
+}
+
+.bad{
+    background:rgba(255,138,61,.12);
+    color:var(--orange);
+}
+
+.danger{
+    background:rgba(255,77,103,.12);
+    color:var(--red);
+}
+
+.aqi-bar{
+    height:13px;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #31cf81,
+            #cbe83c,
+            #ffc857,
+            #ff8b3d,
+            #ff4d67,
+            #9b3cff
+        );
+
+    margin-top:20px;
+
+    position:relative;
+}
+
+.marker{
+    position:absolute;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:20px;
+    height:20px;
+
+    border-radius:50%;
+
+    background:white;
+
+    border:4px solid #07111d;
+}
+
+.pollutants{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.pollutant{
+    background:rgba(255,255,255,.035);
+
+    border-radius:13px;
+
+    padding:14px;
+}
+
+.pollutant small{
     color:var(--muted);
 
-    font-size:10px;
+    display:block;
 
-    line-height:1.8;
+    margin-bottom:6px;
 }
 
+/* ALERTS */
 
-/* =========================================================
-   فوتر
-========================================================= */
+.alerts{
+    display:grid;
+    gap:10px;
+}
 
-.footer{
+.alert{
+    display:flex;
+    gap:14px;
+
+    padding:17px;
+
+    border-radius:16px;
+
+    border:1px solid;
+}
+
+.alert.yellow{
+    background:rgba(255,200,87,.07);
+    border-color:rgba(255,200,87,.25);
+}
+
+.alert.orange{
+    background:rgba(255,138,61,.08);
+    border-color:rgba(255,138,61,.28);
+}
+
+.alert.red{
+    background:rgba(255,77,103,.08);
+    border-color:rgba(255,77,103,.28);
+}
+
+.alert-icon{
+    font-size:26px;
+}
+
+.alert strong{
+    display:block;
+    margin-bottom:4px;
+}
+
+.alert p{
+    color:#a9bacb;
+    font-size:12px;
+    line-height:1.9;
+}
+
+/* HOURLY */
+
+.hourly{
+    display:flex;
+
+    overflow-x:auto;
+
+    gap:10px;
+
+    padding-bottom:8px;
+}
+
+.hour{
+    min-width:125px;
 
     text-align:center;
 
-    margin:
-    27px
-    0
-    10px;
+    background:var(--panel);
 
+    border:1px solid var(--border);
+
+    border-radius:17px;
+
+    padding:15px 11px;
+}
+
+.hour-time{
     color:var(--muted);
+    font-size:11px;
+}
 
+.hour-icon{
+    font-size:31px;
+    margin:13px 0;
+}
+
+.hour-temp{
+    font-size:20px;
+    font-weight:900;
+}
+
+.hour-rain{
+    color:#54c7ff;
+    font-size:11px;
+    margin-top:8px;
+}
+
+/* DAILY */
+
+.daily{
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    gap:10px;
+}
+
+.day{
+    background:var(--panel);
+
+    border:1px solid var(--border);
+
+    border-radius:17px;
+
+    padding:16px 10px;
+
+    text-align:center;
+}
+
+.day-name{
+    font-size:13px;
+    font-weight:800;
+}
+
+.day-date{
+    color:var(--muted);
     font-size:10px;
+    margin-top:3px;
+}
+
+.day-icon{
+    font-size:34px;
+    margin:13px 0;
+}
+
+.temps{
+    display:flex;
+
+    justify-content:center;
+
+    gap:8px;
+
+    font-weight:900;
+}
+
+.max{
+    color:#ffbd75;
+}
+
+.min{
+    color:#7ecbff;
+}
+
+.rain{
+    color:#51c6ff;
+    font-size:11px;
+    margin-top:8px;
+}
+
+/* CHART */
+
+.chart-card{
+    padding:20px;
+
+    background:var(--panel);
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+}
+
+canvas{
+    width:100%!important;
+    height:300px!important;
+}
+
+/* FOOTER */
+
+footer{
+    padding:45px 0 30px;
+
+    text-align:center;
+
+    color:#71869c;
+
+    font-size:11px;
 
     line-height:2;
 }
 
+footer a{
+    color:#55c8ff;
+    text-decoration:none;
+}
 
-/* =========================================================
-   موبایل
-========================================================= */
+/* LOADING */
 
-@media(max-width:1050px){
+.loading{
+    opacity:.55;
+    pointer-events:none;
+}
 
-    .cards{
+/* RESPONSIVE */
 
-        grid-template-columns:
-        repeat(2,1fr);
+@media(max-width:1100px){
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .forecast{
-
-        grid-template-columns:
-        repeat(4,1fr);
+    .daily{
+        grid-template-columns:repeat(4,1fr);
     }
 
 }
 
-
-@media(max-width:750px){
-
-    .container{
-
-        padding:10px;
-    }
-
-    .header{
-
-        padding:11px;
-
-        border-radius:19px;
-    }
-
-    .logo{
-
-        width:56px;
-
-        height:56px;
-    }
-
-    .brand-text h1{
-
-        font-size:14px;
-    }
-
-    .brand-text p{
-
-        font-size:9px;
-    }
-
-    .header-status{
-
-        display:none;
-    }
+@media(max-width:800px){
 
     .hero{
-
         grid-template-columns:1fr;
-
-        padding:22px;
-
-        border-radius:22px;
-
-        gap:15px;
+        text-align:center;
     }
 
-    .hero-title{
-
-        font-size:24px;
+    .hero-icon{
+        order:-1;
     }
 
-    .temperature{
-
-        font-size:58px;
+    .hero-bottom{
+        justify-content:center;
     }
 
-    .cards{
+    .air{
+        grid-template-columns:1fr;
+    }
 
-        grid-template-columns:
-        repeat(2,1fr);
+    #map{
+        height:430px;
+    }
 
+}
+
+@media(max-width:600px){
+
+    .container{
+        width:94%;
+    }
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
         gap:9px;
     }
 
     .card{
-
         padding:14px;
-
-        border-radius:16px;
     }
 
-    .card-value{
-
+    .value{
         font-size:22px;
     }
 
-    .alert-grid{
+    .daily{
+        grid-template-columns:repeat(2,1fr);
+    }
 
+    .pollutants{
         grid-template-columns:1fr;
     }
 
-    .forecast{
+    .hero{
+        padding:20px 14px;
+    }
 
-        grid-template-columns:
-        repeat(2,1fr);
+    .hero-temperature{
+        font-size:70px;
     }
 
     #map{
-
-        height:350px;
-    }
-}
-
-
-@media(max-width:420px){
-
-    .brand-text h1{
-
-        font-size:12px;
+        height:390px;
     }
 
-    .hero-title{
-
-        font-size:21px;
-    }
-
-    .cards{
-
-        gap:7px;
-    }
-
-    .card-title{
-
-        font-size:10px;
-    }
-
-    .card-value{
-
-        font-size:20px;
-    }
 }
 
 </style>
-
 </head>
-
 
 <body>
 
-
 <div class="container">
 
+<header>
 
-<!-- =====================================================
-     HEADER + LOGO
-===================================================== -->
-
-<header class="header">
+<div class="header">
 
 <div class="brand">
 
+<div class="logo">
+🌦️
+</div>
 
-<!-- =====================================================
-     لوگو به صورت SVG
-     هیچ فایل تصویری خارجی لازم نیست
-===================================================== -->
-
-<svg
-class="logo"
-viewBox="0 0 300 300"
-xmlns="http://www.w3.org/2000/svg"
-aria-label="لوگوی انجمن ارومیه"
->
-
-<circle
-cx="150"
-cy="150"
-r="142"
-fill="#ffffff"
-stroke="#16a34a"
-stroke-width="14"
-/>
-
-<circle
-cx="150"
-cy="150"
-r="120"
-fill="#ffffff"
-stroke="#16a34a"
-stroke-width="3"
-/>
-
-
-<!-- ساختمان اول -->
-
-<path
-d="M70 180 L70 105 L105 90 L105 180 Z"
-fill="#16a34a"
-/>
-
-<path
-d="M78 112 H100 M78 126 H100 M78 140 H100 M78 154 H100 M78 168 H100"
-stroke="white"
-stroke-width="5"
-/>
-
-
-<!-- ساختمان اصلی -->
-
-<path
-d="M112 180 L112 65 L150 45 L150 180 Z"
-fill="#16a34a"
-/>
-
-<path
-d="M122 83 H142
-M122 98 H142
-M122 113 H142
-M122 128 H142
-M122 143 H142
-M122 158 H142"
-stroke="white"
-stroke-width="5"
-/>
-
-
-<!-- ساختمان سوم -->
-
-<path
-d="M158 180 L158 100 L193 112 L193 180 Z"
-fill="#16a34a"
-/>
-
-<path
-d="M167 112 H185
-M167 127 H185
-M167 142 H185
-M167 157 H185
-M167 172 H185"
-stroke="white"
-stroke-width="5"
-/>
-
-
-<!-- حلقه پایینی -->
-
-<path
-d="M72 198
-C105 215 195 215 228 198"
-fill="none"
-stroke="#16a34a"
-stroke-width="5"
-stroke-linecap="round"
-/>
-
-
-<!-- متن انگلیسی -->
-
-<text
-x="150"
-y="225"
-text-anchor="middle"
-font-size="13"
-font-family="Arial"
-font-weight="bold"
-fill="#16a34a"
->
-URMIA
-</text>
-
-<text
-x="150"
-y="242"
-text-anchor="middle"
-font-size="9"
-font-family="Arial"
-font-weight="bold"
-fill="#16a34a"
->
-QUALIFIED ENGINEERS
-</text>
-
-</svg>
-
-
-<div class="brand-text">
+<div>
 
 <h1>
-سامانه هوشمند هواشناسی انجمن ارومیه
+هواشناسی انجمن ارومیه
 </h1>
 
 <p>
-URMIA QUALIFIED ENGINEERS ASSOCIATION
+سامانه هوشمند پایش هوا، رادار بارش و هشدارهای جوی
 </p>
 
 </div>
 
 </div>
 
+<div class="header-right">
 
-<div class="header-status">
+<div class="live">
 
-<div class="status">
-🟢 سامانه آنلاین
+<span class="live-dot"></span>
+
+<span>
+زنده
+</span>
+
+<span id="clock">
+--:--:--
+</span>
+
 </div>
 
-<div
-class="status"
-id="updateStatus"
->
-در حال دریافت اطلاعات...
+<button
+class="btn"
+id="refreshBtn">
+
+↻ بروزرسانی
+
+</button>
+
 </div>
 
 </div>
@@ -1044,317 +896,513 @@ id="updateStatus"
 </header>
 
 
-
-<!-- =====================================================
-     HERO
-===================================================== -->
+<!-- HERO -->
 
 <section class="hero">
-
 
 <div>
 
 <div class="location">
-📍 ارومیه، آذربایجان غربی
+
+📍
+<strong>
+ارومیه، آذربایجان غربی
+</strong>
+
 </div>
 
+<div class="hero-temperature">
+
+<span id="temperature">
+--
+</span>
+
+<small>
+°C
+</small>
+
+</div>
 
 <div
-class="hero-title"
-id="weatherCondition"
->
-در حال دریافت وضعیت هوا...
+class="description"
+id="description">
+
+در حال دریافت اطلاعات...
+
 </div>
 
+<div class="feels">
+
+احساس واقعی:
+<b id="feels">--</b>
+°C
+
+</div>
+
+<div class="hero-bottom">
+
+<div class="mini">
+💧 رطوبت:
+<b id="humidity">--</b>%
+</div>
+
+<div class="mini">
+🌬️ باد:
+<b id="wind">--</b> km/h
+</div>
+
+<div class="mini">
+🧭 جهت:
+<b id="windDir">--</b>
+</div>
+
+<div class="mini">
+☀️ UV:
+<b id="uv">--</b>
+</div>
+
+</div>
+
+</div>
 
 <div
-class="hero-description"
-id="weatherDescription"
->
-در حال دریافت آخرین اطلاعات هواشناسی...
-</div>
+class="hero-icon"
+id="heroIcon">
 
-
-<div class="hero-buttons">
-
-<button
-class="btn"
-onclick="refreshWeather()"
->
-🔄 بروزرسانی
-</button>
-
-
-<button
-class="btn"
-onclick="getMyLocation()"
->
-📍 موقعیت من
-</button>
-
-
-<button
-class="btn"
-onclick="centerMap()"
->
-🗺️ مشاهده نقشه
-</button>
+🌤️
 
 </div>
 
+</section>
+
+
+<!-- CURRENT -->
+
+<section class="section">
+
+<h2 class="section-title">
+اطلاعات لحظه‌ای
+</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<div class="card-top">
+دمای هوا
+<div class="card-icon">🌡️</div>
 </div>
 
+<div class="value">
+<span id="temp2">--</span>
+<span class="unit">°C</span>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-top">
+رطوبت نسبی
+<div class="card-icon">💧</div>
+</div>
+
+<div class="value">
+<span id="hum2">--</span>
+<span class="unit">%</span>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-top">
+فشار هوا
+<div class="card-icon">🔵</div>
+</div>
+
+<div class="value">
+<span id="pressure">--</span>
+<span class="unit">hPa</span>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-top">
+سرعت باد
+<div class="card-icon">💨</div>
+</div>
+
+<div class="value">
+<span id="wind2">--</span>
+<span class="unit">km/h</span>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-top">
+دید افقی
+<div class="card-icon">👁️</div>
+</div>
+
+<div class="value">
+<span id="visibility">--</span>
+<span class="unit">km</span>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-top">
+ابرناکی
+<div class="card-icon">☁️</div>
+</div>
+
+<div class="value">
+<span id="cloud">--</span>
+<span class="unit">%</span>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-top">
+احتمال بارش
+<div class="card-icon">🌧️</div>
+</div>
+
+<div class="value">
+<span id="rain">--</span>
+<span class="unit">%</span>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-top">
+بارش
+<div class="card-icon">🌧️</div>
+</div>
+
+<div class="value">
+<span id="precip">--</span>
+<span class="unit">mm</span>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- MAP -->
+
+<section class="section">
+
+<h2 class="section-title">
+نقشه زنده و رادار بارش ارومیه
+</h2>
+
+<div class="map-wrap">
+
+<div id="map"></div>
+
+<div class="map-controls">
+
+<button
+class="map-btn active"
+id="radarToggle">
+
+🌧️ رادار بارش
+
+</button>
+
+<button
+class="map-btn"
+id="satelliteToggle">
+
+🗺️ نقشه ماهواره‌ای
+
+</button>
+
+<button
+class="map-btn"
+id="centerMap">
+
+📍 مرکز ارومیه
+
+</button>
+
+</div>
+
+<div class="map-info">
+
+رادار بارش:
+<span id="radarTime">
+در حال دریافت...
+</span>
+
+</div>
+
+</div>
+
+<div class="radar-panel">
+
+<div>
+
+<b>
+کنترل زمان رادار
+</b>
+
+<div
+style="color:var(--muted);font-size:11px;margin-top:4px">
+
+رادار گذشته تا حدود ۲ ساعت اخیر
+
+</div>
+
+</div>
+
+<div class="radar-control">
+
+<button
+class="btn"
+id="radarPrev">
+
+‹
+
+</button>
+
+<input
+type="range"
+id="radarSlider"
+min="0"
+max="0"
+value="0">
+
+<button
+class="btn"
+id="radarNext">
+
+›
+
+</button>
+
+</div>
+
+<div
+id="radarFrame"
+style="font-size:12px;color:var(--muted)">
+
+--
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- AIR -->
+
+<section class="section">
+
+<h2 class="section-title">
+کیفیت هوای ارومیه
+</h2>
+
+<div class="air">
+
+<div class="card">
+
+<div class="aqi-main">
 
 <div>
 
 <div
-class="temperature"
-id="temperature"
->
---°
+style="color:var(--muted);font-size:12px">
+
+شاخص کیفیت هوا
 </div>
 
+<div
+class="aqi-number"
+id="aqi">
 
-<div class="weather-info">
-
-احساس واقعی:
-
-<b id="feelsLike">
 --
-</b>
 
-<br>
+</div>
 
-وضعیت:
+<div
+class="status good"
+id="aqiStatus">
 
-<b id="currentWeather">
---
-</b>
-
-<br>
-
-آخرین بروزرسانی:
-
-<b id="lastUpdate">
---
-</b>
+در حال بررسی
 
 </div>
 
 </div>
 
+<div style="font-size:70px">
+🌫️
+</div>
+
+</div>
+
+<div class="aqi-bar">
+
+<div
+class="marker"
+id="aqiMarker"
+style="left:0%">
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="pollutants">
+
+<div class="pollutant">
+
+<small>
+PM2.5
+</small>
+
+<b id="pm25">
+--
+</b>
+
+µg/m³
+
+</div>
+
+<div class="pollutant">
+
+<small>
+PM10
+</small>
+
+<b id="pm10">
+--
+</b>
+
+µg/m³
+
+</div>
+
+<div class="pollutant">
+
+<small>
+NO₂
+</small>
+
+<b id="no2">
+--
+</b>
+
+µg/m³
+
+</div>
+
+<div class="pollutant">
+
+<small>
+O₃
+</small>
+
+<b id="o3">
+--
+</b>
+
+µg/m³
+
+</div>
+
+<div class="pollutant">
+
+<small>
+SO₂
+</small>
+
+<b id="so2">
+--
+</b>
+
+µg/m³
+
+</div>
+
+<div class="pollutant">
+
+<small>
+گرد و غبار
+</small>
+
+<b id="dust">
+--
+</b>
+
+µg/m³
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 </section>
 
 
-
-<!-- =====================================================
-     اطلاعات لحظه‌ای
-===================================================== -->
-
-<section class="cards">
-
-
-<div class="card">
-
-<div class="card-title">
-💧 رطوبت هوا
-</div>
-
-<div
-class="card-value"
-id="humidity"
->
---%
-</div>
-
-<div class="card-sub">
-رطوبت نسبی
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-💨 سرعت باد
-</div>
-
-<div
-class="card-value"
-id="wind"
->
---
-</div>
-
-<div class="card-sub">
-کیلومتر بر ساعت
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-🧭 جهت باد
-</div>
-
-<div
-class="card-value"
-id="windDirection"
->
---
-</div>
-
-<div
-class="card-sub"
-id="windDirectionText"
->
---
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-🌧️ احتمال بارش
-</div>
-
-<div
-class="card-value"
-id="rainProbability"
->
---%
-</div>
-
-<div class="card-sub">
-احتمال بارندگی
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-☀️ شاخص UV
-</div>
-
-<div
-class="card-value"
-id="uv"
->
---
-</div>
-
-<div class="card-sub">
-تابش فرابنفش
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-🌫️ PM2.5
-</div>
-
-<div
-class="card-value"
-id="pm25"
->
---
-</div>
-
-<div class="card-sub">
-µg/m³
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-🏭 PM10
-</div>
-
-<div
-class="card-value"
-id="pm10"
->
---
-</div>
-
-<div class="card-sub">
-µg/m³
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-🟢 شاخص کیفیت هوا
-</div>
-
-<div
-class="card-value"
-id="aqi"
->
---
-</div>
-
-<div class="card-sub">
-European AQI
-</div>
-
-</div>
-
-
-</section>
-
-
-
-<!-- =====================================================
-     هشدارها
-===================================================== -->
+<!-- ALERT -->
 
 <section class="section">
 
-
-<div class="section-header">
-
-<h2>
-🚨 هشدارهای هوشمند
+<h2 class="section-title">
+مرکز هشدار هوشمند
 </h2>
 
-<span>
-پایش خودکار شرایط جوی
-</span>
-
-</div>
-
-
 <div
-class="alert-grid"
-id="alerts"
->
+class="alerts"
+id="alerts">
 
-<div class="alert alert-green">
+<div class="alert yellow">
 
-<div class="alert-title">
-🟢 در حال بررسی
+<div class="alert-icon">
+⏳
 </div>
 
-<div class="alert-text">
-سامانه در حال بررسی وضعیت هوا و کیفیت هوا است.
+<div>
+
+<strong>
+در حال تحلیل
+</strong>
+
+<p>
+سامانه در حال دریافت و تحلیل داده‌های جوی و کیفیت هوا است.
+</p>
+
 </div>
 
 </div>
@@ -1364,374 +1412,207 @@ id="alerts"
 </section>
 
 
-
-<!-- =====================================================
-     نمودار
-===================================================== -->
+<!-- HOURLY -->
 
 <section class="section">
 
-
-<div class="section-header">
-
-<h2>
-📈 نمودار ۲۴ ساعت آینده
+<h2 class="section-title">
+پیش‌بینی ساعتی
 </h2>
 
-<span>
-دما و رطوبت
-</span>
+<div
+class="hourly"
+id="hourly">
 
 </div>
 
+</section>
+
+
+<!-- CHART -->
+
+<section class="section">
+
+<h2 class="section-title">
+نمودار دمای ۲۴ ساعت آینده
+</h2>
 
 <div class="chart-card">
 
-<canvas id="weatherChart"></canvas>
+<canvas id="temperatureChart"></canvas>
 
 </div>
 
 </section>
 
 
-
-<!-- =====================================================
-     پیش‌بینی ۷ روز
-===================================================== -->
+<!-- DAILY -->
 
 <section class="section">
 
-
-<div class="section-header">
-
-<h2>
-🗓️ پیش‌بینی ۷ روز آینده
+<h2 class="section-title">
+پیش‌بینی ۷ روز آینده
 </h2>
-
-<span>
-پیش‌بینی روزانه
-</span>
-
-</div>
-
 
 <div
-class="forecast"
-id="forecast"
->
-</div>
-
-</section>
-
-
-
-<!-- =====================================================
-     نقشه و رادار
-===================================================== -->
-
-<section class="section">
-
-
-<div class="section-header">
-
-<h2>
-🛰️ رادار و نقشه هواشناسی
-</h2>
-
-<span>
-ارومیه و اطراف
-</span>
-
-</div>
-
-
-<div class="map-card">
-
-<div id="map"></div>
-
-<div class="map-description">
-
-🛰️ نقشه هواشناسی ارومیه و اطراف.
-رادار بارش در صورت در دسترس بودن داده نمایش داده می‌شود.
-
-</div>
+class="daily"
+id="daily">
 
 </div>
 
 </section>
 
 
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
-<footer class="footer">
+<footer>
 
 <b>
-سامانه هوشمند هواشناسی انجمن ارومیه
+هواشناسی انجمن ارومیه
 </b>
 
 <br>
 
-URMIA QUALIFIED ENGINEERS ASSOCIATION
-
-<br><br>
-
-داده‌های هواشناسی:
-Open-Meteo
-
-|
-
-داده کیفیت هوا:
-Open-Meteo / CAMS
-
-|
-
-نقشه:
-OpenStreetMap
+داده‌های هواشناسی توسط Open-Meteo دریافت می‌شوند.
 
 <br>
 
-هشدارهای این سامانه خودکار هستند و جایگزین اطلاعیه رسمی سازمان هواشناسی کشور نیستند.
+رادار بارش توسط
+<a
+href="https://www.rainviewer.com/"
+target="_blank"
+rel="noopener">
+RainViewer
+</a>
+ارائه می‌شود.
+
+<br>
+
+این سامانه اطلاع‌رسانی عمومی است و هشدارهای آن جایگزین هشدار رسمی
+سازمان هواشناسی نیست.
 
 </footer>
-
 
 </div>
 
 
+<!-- Leaflet -->
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script
+src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+<!-- Chart.js -->
+
+<script
+src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
 
 
 <script>
 
 /* =========================================================
-   تنظیمات موقعیت ارومیه
+   CONFIG
 ========================================================= */
 
-let LAT = 37.5553;
+const LAT = 37.5553;
+const LON = 45.0724;
 
-let LON = 45.0724;
+const WEATHER_URL =
+`https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}`+
+`&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,cloud_cover,surface_pressure,wind_speed_10m,wind_direction_10m,visibility`+
+`&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m,uv_index`+
+`&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_probability_max,uv_index_max`+
+`&timezone=Asia/Tehran&forecast_days=7`;
+
+const AIR_URL =
+`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${LAT}&longitude=${LON}`+
+`&current=pm10,pm2_5,nitrogen_dioxide,sulphur_dioxide,ozone,dust,european_aqi,us_aqi`+
+`&hourly=pm10,pm2_5&timezone=Asia/Tehran`;
+
+let weatherData = null;
+let airData = null;
 
 let map;
+let radarLayer = null;
+let baseLayer = null;
+let satelliteLayer = null;
 
-let marker;
+let radarFrames = [];
+let radarIndex = 0;
 
-let radarLayer;
-
-let weatherChart;
-
-
-/* =========================================================
-   کد وضعیت هوا
-========================================================= */
-
-const weatherCodes = {
-
-0:"صاف",
-
-1:"عمدتاً صاف",
-
-2:"نیمه‌ابری",
-
-3:"ابری",
-
-45:"مه",
-
-48:"مه یخ‌زن",
-
-51:"نم‌نم باران",
-
-53:"نم‌نم باران",
-
-55:"نم‌نم شدید",
-
-61:"باران",
-
-63:"باران متوسط",
-
-65:"باران شدید",
-
-71:"برف",
-
-73:"برف متوسط",
-
-75:"برف شدید",
-
-77:"دانه‌های برف",
-
-80:"رگبار باران",
-
-81:"رگبار متوسط",
-
-82:"رگبار شدید",
-
-85:"رگبار برف",
-
-86:"رگبار برف شدید",
-
-95:"رعدوبرق",
-
-96:"رعدوبرق و تگرگ",
-
-99:"رعدوبرق و تگرگ شدید"
-
-};
+let temperatureChart = null;
 
 
 /* =========================================================
-   آیکون هوا
+   CLOCK
 ========================================================= */
 
-function weatherIcon(code){
+function updateClock(){
 
-if(code === 0 || code === 1)
-return "☀️";
+    const now = new Date();
 
-if(code === 2 || code === 3)
-return "☁️";
+    document.getElementById("clock").textContent =
+        now.toLocaleTimeString("fa-IR",{
+            hour:"2-digit",
+            minute:"2-digit",
+            second:"2-digit"
+        });
+}
 
-if(code === 45 || code === 48)
-return "🌫️";
+setInterval(updateClock,1000);
+updateClock();
 
-if(
-code === 51 ||
-code === 53 ||
-code === 55 ||
-code === 61 ||
-code === 63 ||
-code === 65 ||
-code === 80 ||
-code === 81 ||
-code === 82
-)
-return "🌧️";
 
-if(
-code === 71 ||
-code === 73 ||
-code === 75 ||
-code === 77 ||
-code === 85 ||
-code === 86
-)
-return "❄️";
+/* =========================================================
+   WEATHER CODE
+========================================================= */
 
-if(
-code === 95 ||
-code === 96 ||
-code === 99
-)
-return "⛈️";
+function weatherInfo(code){
 
-return "🌤️";
+    const map = {
 
+        0:["آسمان صاف","☀️"],
+        1:["عمدتاً صاف","🌤️"],
+        2:["نیمه ابری","⛅"],
+        3:["ابری","☁️"],
+
+        45:["مه","🌫️"],
+        48:["مه یخ‌زده","🌫️"],
+
+        51:["نم‌نم باران","🌦️"],
+        53:["بارش خفیف","🌦️"],
+        55:["بارش ملایم","🌧️"],
+
+        56:["باران یخ‌زن","🌧️"],
+        57:["باران یخ‌زن شدید","🌧️"],
+
+        61:["باران خفیف","🌧️"],
+        63:["باران","🌧️"],
+        65:["باران شدید","🌧️"],
+
+        66:["باران یخ‌زن","🌨️"],
+        67:["باران یخ‌زن شدید","🌨️"],
+
+        71:["برف خفیف","🌨️"],
+        73:["برف","🌨️"],
+        75:["برف شدید","❄️"],
+
+        77:["دانه‌های برف","❄️"],
+
+        80:["رگبار خفیف","🌦️"],
+        81:["رگبار","🌧️"],
+        82:["رگبار شدید","⛈️"],
+
+        85:["رگبار برف","🌨️"],
+        86:["رگبار برف شدید","❄️"],
+
+        95:["رعد و برق","⛈️"],
+        96:["رعد و برق و تگرگ","⛈️"],
+        99:["رعد و برق شدید و تگرگ","⛈️"]
+
+    };
+
+    return map[code] || ["نامشخص","🌡️"];
 }
 
 
-/* =========================================================
-   جهت باد
-========================================================= */
-
-function windDirection(degree){
-
-const directions = [
-
-"شمال",
-
-"شمال‌شرق",
-
-"شرق",
-
-"جنوب‌شرق",
-
-"جنوب",
-
-"جنوب‌غرب",
-
-"غرب",
-
-"شمال‌غرب"
-
-];
-
-return directions[
-Math.round(degree / 45) % 8
-];
-
-}
-
-
-/* =========================================================
-   تبدیل ساعت
-========================================================= */
-
-function timeFormat(time){
-
-return new Date(time)
-.toLocaleTimeString(
-"fa-IR",
-{
-hour:"2-digit",
-minute:"2-digit"
-}
-);
-
-}
-
-
-/* =========================================================
-   دریافت اطلاعات هوا
-========================================================= */
-
-async function getWeatherData(){
-
-const weatherURL =
-
-"https://api.open-meteo.com/v1/forecast" +
-
-"?latitude=" + LAT +
-
-"&longitude=" + LON +
-
-"&current=" +
-
-"temperature_2m," +
-
-"relative_humidity_2m," +
-
-"apparent_temperature," +
-
-"precipitation," +
-
-"rain," +
-
-"weather_code," +
-
-"wind_speed_10m," +
-
-"wind_direction_10m" +
-
-"&hourly=" +
-
-"temperature_2m," +
-
-"relative_humidity_2m," +
-
-"precipitation_probability," +
-
-"uv_index," +
-
-"weather_code" +
-
-"&daily=" +
-
-"weather_code," +
-
-"temperature_2m_max," +
-
-"temperature_2m_min," +
-
-"precipitation_probability_max
+/* ==========================================
