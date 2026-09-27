@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>انجمن سازندگان ذیصلاح ساختمان شهرستان ارومیه</title>
+<style>
+body{font-family:tahoma;margin:0;background:#f1f5f9;color:#1e293b}
+header{background:#111827;color:white;text-align:center;padding:25px}
+main{max-width:1000px;margin:auto;padding:20px}
+.card{background:white;border-radius:20px;padding:20px;margin:15px 0;box-shadow:0 10px 25px #0002;animation:show .8s}
+.temp{font-size:55px;color:#2563eb;font-weight:bold}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
+@keyframes show{from{opacity:0;transform:translateY(20px)}to{opacity:1}}
+</style>
+</head>
+<body>
+<header>
+<h1>انجمن سازندگان ذیصلاح ساختمان شهرستان ارومیه</h1>
+<p>سامانه هوشمند هواشناسی</p>
+</header>
+<main>
+<div class="card">
+<h2>وضعیت فعلی ارومیه</h2>
+<div class="temp" id="temp">در حال دریافت...</div>
+<p>رطوبت: <span id="humidity">-</span>%</p>
+<p>سرعت باد: <span id="wind">-</span> km/h</p>
+</div>
+<div class="grid">
+<div class="card">🌧️ بارش<br><b id="rain">-</b></div>
+<div class="card">💨 باد<br><b id="wind2">-</b></div>
+<div class="card">💧 رطوبت<br><b id="hum2">-</b></div>
+</div>
+<div class="card" id="forecast">پیش‌بینی روزهای آینده...</div>
+</main>
+<script>
+async function weather(){
+try{
+let r=await fetch('https://api.open-meteo.com/v1/forecast?latitude=37.5527&longitude=45.0761&current=temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation&daily=temperature_2m_max,wind_speed_10m_max,precipitation_sum&timezone=auto');
+let d=await r.json();
+temp.innerHTML=Math.round(d.current.temperature_2m)+'°';
+humidity.innerHTML=d.current.relative_humidity_2m;
+hum2.innerHTML=d.current.relative_humidity_2m+'%';
+wind.innerHTML=Math.round(d.current.wind_speed_10m);
+wind2.innerHTML=Math.round(d.current.wind_speed_10m)+' km/h';
+rain.innerHTML=d.current.precipitation+' mm';
+let t='';
+for(let i=0;i<7;i++){t+=`<p>روز ${i+1}: 🌡️ ${Math.round(d.daily.temperature_2m_max[i])}° | 💨 ${Math.round(d.daily.wind_speed_10m_max[i])} km/h | 🌧️ ${d.daily.precipitation_sum[i]} mm</p>`}
+forecast.innerHTML=t;
+}catch(e){forecast.innerHTML='خطا در دریافت اطلاعات هواشناسی'}
+}
+weather();
+setInterval(weather,1800000);
+</script>
+</body>
+</html>
