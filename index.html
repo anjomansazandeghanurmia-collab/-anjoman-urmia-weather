@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>سایت اختصاصی هواشناسی انجمن سازندگان ذیصلاح ساختمان شهرستان ارومیه</title>
+<title>هواشناسی انجمن سازندگان ذیصلاح ساختمان شهرستان ارومیه</title>
 
 <style>
 
@@ -17,14 +17,17 @@
 
 body{
     font-family:Tahoma,Arial,sans-serif;
-    background:#eef7fc;
+    background:#f1f7fb;
     color:#172033;
 }
 
+/* ===== Header ===== */
+
 header{
-    background:linear-gradient(135deg,#075985,#0284c7);
+    background:linear-gradient(135deg,#075985,#0369a1);
     color:white;
-    padding:20px;
+    padding:16px 20px;
+    box-shadow:0 4px 20px rgba(0,0,0,.12);
 }
 
 .header{
@@ -33,6 +36,7 @@ header{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    gap:20px;
 }
 
 .logo{
@@ -45,15 +49,19 @@ header{
     display:flex;
     align-items:center;
     gap:8px;
+    font-size:13px;
+    white-space:nowrap;
 }
 
 .dot{
-    width:10px;
-    height:10px;
+    width:9px;
+    height:9px;
     border-radius:50%;
     background:#22c55e;
     box-shadow:0 0 10px #22c55e;
 }
+
+/* ===== Main ===== */
 
 main{
     max-width:1200px;
@@ -66,54 +74,83 @@ main{
     background:#fee2e2;
     color:#991b1b;
     padding:15px;
-    border-radius:12px;
+    border-radius:14px;
     margin-bottom:20px;
+    border-right:4px solid #dc2626;
 }
 
+/* ===== Hero ===== */
+
 .hero{
+    position:relative;
+    overflow:hidden;
     background:linear-gradient(135deg,#0284c7,#0f766e);
     color:white;
-    border-radius:25px;
-    padding:30px;
-    margin-bottom:20px;
-    box-shadow:0 15px 40px rgba(0,0,0,.15);
+    border-radius:28px;
+    padding:32px;
+    margin-bottom:22px;
+    box-shadow:0 15px 40px rgba(2,132,199,.22);
+}
+
+.hero:after{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    background:rgba(255,255,255,.08);
+    left:-70px;
+    top:-90px;
 }
 
 .hero h1{
-    font-size:38px;
+    position:relative;
+    z-index:1;
+    font-size:36px;
     margin-bottom:10px;
 }
 
 .subtitle{
-    font-size:17px;
+    position:relative;
+    z-index:1;
+    font-size:16px;
     opacity:.9;
     margin-bottom:25px;
 }
 
 .current{
+    position:relative;
+    z-index:1;
     display:flex;
     align-items:center;
-    gap:20px;
+    gap:22px;
 }
 
 .icon{
     font-size:75px;
+    filter:drop-shadow(0 5px 10px rgba(0,0,0,.15));
 }
 
 .temp{
-    font-size:80px;
+    font-size:78px;
     font-weight:bold;
+    line-height:1;
 }
 
 .desc{
-    font-size:20px;
+    font-size:19px;
+    margin-top:8px;
 }
 
 .update{
-    margin-top:20px;
-    font-size:13px;
-    opacity:.85;
+    position:relative;
+    z-index:1;
+    margin-top:22px;
+    font-size:12px;
+    opacity:.8;
 }
+
+/* ===== Cards ===== */
 
 .cards{
     display:grid;
@@ -124,31 +161,44 @@ main{
 .card{
     background:white;
     border-radius:20px;
-    padding:22px;
+    padding:22px 15px;
     text-align:center;
-    box-shadow:0 8px 25px rgba(0,0,0,.07);
+    box-shadow:0 6px 22px rgba(15,23,42,.07);
+    border:1px solid #e5eef5;
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 28px rgba(15,23,42,.12);
 }
 
 .card-icon{
-    font-size:35px;
+    font-size:32px;
     margin-bottom:10px;
 }
 
 .label{
     color:#64748b;
-    font-size:14px;
+    font-size:13px;
     margin-bottom:8px;
 }
 
 .value{
-    font-size:24px;
+    font-size:23px;
     font-weight:bold;
+    color:#0f172a;
 }
 
+/* ===== Titles ===== */
+
 .title{
-    font-size:24px;
+    font-size:22px;
     margin:32px 0 15px;
+    color:#0f3d56;
 }
+
+/* ===== Forecast ===== */
 
 .forecast{
     display:grid;
@@ -161,12 +211,19 @@ main{
     border-radius:18px;
     padding:17px 8px;
     text-align:center;
-    box-shadow:0 8px 20px rgba(0,0,0,.06);
+    box-shadow:0 6px 18px rgba(15,23,42,.06);
+    border:1px solid #e5eef5;
+    transition:.25s;
+}
+
+.day:hover{
+    transform:translateY(-3px);
 }
 
 .day-name{
     font-weight:bold;
     margin-bottom:7px;
+    color:#075985;
 }
 
 .day-date{
@@ -180,16 +237,18 @@ main{
 }
 
 .day-temp{
-    font-size:18px;
+    font-size:17px;
     font-weight:bold;
 }
 
 .day-info{
-    font-size:12px;
+    font-size:11px;
     color:#475569;
     line-height:2;
     margin-top:10px;
 }
+
+/* ===== Rain ===== */
 
 .rain-grid{
     display:grid;
@@ -201,18 +260,23 @@ main{
     background:white;
     border-radius:20px;
     padding:22px;
-    box-shadow:0 8px 25px rgba(0,0,0,.07);
+    box-shadow:0 6px 22px rgba(15,23,42,.07);
+    border:1px solid #e5eef5;
 }
 
 .rain-title{
     font-weight:bold;
     margin-bottom:10px;
+    color:#334155;
 }
 
 .rain-value{
     font-size:30px;
     font-weight:bold;
+    color:#0284c7;
 }
+
+/* ===== Air ===== */
 
 .air{
     background:white;
@@ -221,23 +285,34 @@ main{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    box-shadow:0 8px 25px rgba(0,0,0,.07);
+    box-shadow:0 6px 22px rgba(15,23,42,.07);
+    border:1px solid #e5eef5;
 }
 
 .air-status{
     background:#dcfce7;
     color:#166534;
-    padding:12px 22px;
+    padding:11px 22px;
     border-radius:30px;
     font-weight:bold;
+    font-size:14px;
 }
+
+/* ===== Footer ===== */
 
 footer{
     background:#0f172a;
     color:#cbd5e1;
     text-align:center;
-    padding:30px;
+    padding:30px 15px;
+    font-size:13px;
 }
+
+footer strong{
+    color:white;
+}
+
+/* ===== Tablet ===== */
 
 @media(max-width:900px){
 
@@ -251,25 +326,40 @@ footer{
 
 }
 
+/* ===== Mobile ===== */
+
 @media(max-width:600px){
+
+    header{
+        padding:14px;
+    }
 
     .header{
         flex-direction:column;
         align-items:flex-start;
-        gap:15px;
+        gap:10px;
     }
 
     .logo{
-        font-size:12px;
+        font-size:11px;
         white-space:nowrap;
     }
 
+    .live{
+        font-size:12px;
+    }
+
     .hero{
-        padding:25px;
+        padding:25px 20px;
+        border-radius:22px;
     }
 
     .hero h1{
-        font-size:28px;
+        font-size:27px;
+    }
+
+    .subtitle{
+        font-size:14px;
     }
 
     .current{
@@ -277,11 +367,15 @@ footer{
     }
 
     .icon{
-        font-size:55px;
+        font-size:52px;
     }
 
     .temp{
-        font-size:65px;
+        font-size:60px;
+    }
+
+    .desc{
+        font-size:17px;
     }
 
     .cards{
@@ -290,12 +384,17 @@ footer{
     }
 
     .card{
-        padding:18px 8px;
+        padding:17px 7px;
+    }
+
+    .value{
+        font-size:20px;
     }
 
     .forecast{
         display:flex;
         overflow-x:auto;
+        padding-bottom:8px;
     }
 
     .day{
@@ -312,6 +411,28 @@ footer{
         gap:15px;
     }
 
+    .title{
+        font-size:20px;
+    }
+
+}
+
+/* ===== Very Small Phones ===== */
+
+@media(max-width:380px){
+
+    .logo{
+        font-size:10px;
+    }
+
+    .temp{
+        font-size:52px;
+    }
+
+    .icon{
+        font-size:45px;
+    }
+
 }
 
 </style>
@@ -325,7 +446,7 @@ footer{
 <div class="header">
 
 <div class="logo">
-🌤️ سایت اختصاصی هواشناسی انجمن سازندگان ذیصلاح ساختمان شهرستان ارومیه
+🌤️ هواشناسی انجمن سازندگان ذیصلاح ساختمان شهرستان ارومیه
 </div>
 
 <div class="live">
@@ -386,7 +507,6 @@ footer{
 
 
 <section class="cards">
-
 
 <div class="card">
 
@@ -475,9 +595,7 @@ footer{
 🌧️ وضعیت بارش امروز
 </h2>
 
-
 <section class="rain-grid">
-
 
 <div class="rain-card">
 
@@ -553,7 +671,7 @@ footer{
 <footer>
 
 <strong>
-سایت اختصاصی هواشناسی انجمن سازندگان ذیصلاح ساختمان شهرستان ارومیه
+هواشناسی انجمن سازندگان ذیصلاح ساختمان شهرستان ارومیه
 </strong>
 
 <br><br>
@@ -744,11 +862,8 @@ async function loadWeather(){
             WEATHER_URL,
             {
                 method:"GET",
-
                 cache:"no-store",
-
-                signal:
-                controller.signal
+                signal:controller.signal
             }
         );
 
@@ -769,12 +884,6 @@ async function loadWeather(){
         await response.json();
 
 
-        console.log(
-            "OPEN METEO:",
-            data
-        );
-
-
         if(!data.current){
 
             throw new Error(
@@ -786,11 +895,6 @@ async function loadWeather(){
 
         const current =
         data.current;
-
-
-        /* =========================
-           اطلاعات فعلی
-        ========================= */
 
 
         const weather =
@@ -859,23 +963,14 @@ async function loadWeather(){
         );
 
 
-        /* =========================
-           پیش‌بینی
-        ========================= */
-
         showForecast(
             data.daily
         );
 
 
-        /* =========================
-           بارش
-        ========================= */
-
         showRain(
             data.daily
         );
-
 
     }
 
@@ -928,16 +1023,16 @@ function showForecast(daily){
 
         if(i === 0){
 
-            dayName =
-            "امروز";
+            dayName = "امروز";
 
         }
+
         else if(i === 1){
 
-            dayName =
-            "فردا";
+            dayName = "فردا";
 
         }
+
         else{
 
             dayName =
@@ -963,6 +1058,7 @@ function showForecast(daily){
         document.createElement(
             "div"
         );
+
 
         card.className =
         "day";
@@ -1028,7 +1124,6 @@ function showForecast(daily){
                 cm
 
             </div>
-
         `;
 
 
@@ -1192,7 +1287,7 @@ loadAir();
 
 
 /* =================================
-   بروزرسانی خودکار
+   بروزرسانی خودکار هر ۱۰ دقیقه
 ================================= */
 
 setInterval(
