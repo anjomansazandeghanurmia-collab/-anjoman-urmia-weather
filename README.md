@@ -1,1 +1,0 @@
-# -anjoman-urmia-weather

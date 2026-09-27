@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#07111f"
+  >
+
+  <meta
+    name="description"
+    content="هواشناسی اختصاصی انجمن ارومیه"
+  >
+
+  <title>هواشناسی انجمن ارومیه</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family:
+        Tahoma,
+        Arial,
+        sans-serif;
+
+      background:
+        linear-gradient(
+          135deg,
+          #07111f,
+          #0b1d31 50%,
+          #06101c
+        );
+
+      color: #ffffff;
+      min-height: 100vh;
+      line-height: 1.8;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    .container {
+      width: min(1250px, 94%);
+      margin: auto;
+    }
+
+    /* HEADER */
+
+    header {
+      padding: 22px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(5, 15, 28, 0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo {
+      width: 55px;
+      height: 55px;
+      border-radius: 18px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 28px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #1488cc,
+          #2b32b2
+        );
+
+      box-shadow:
+        0 10px 35px rgba(20,136,204,.35);
+    }
+
+    .brand h1 {
+      font-size: 21px;
+      margin-bottom: 2px;
+    }
+
+    .brand p {
+      color: #8ea4bd;
+      font-size: 12px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status {
+      padding: 8px 13px;
+      border-radius: 30px;
+      background: rgba(53,208,127,.10);
+      color: #6ee7a6;
+      font-size: 12px;
+      border: 1px solid rgba(53,208,127,.2);
+    }
+
+    /* MAIN */
+
+    main {
+      padding: 30px 0 60px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.5fr .8fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(19,40,63,.90),
+          rgba(9,24,40,.92)
+        );
+
+      border:
+        1px solid rgba(255,255,255,.07);
+
+      border-radius: 24px;
+      padding: 24px;
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.18);
+    }
+
+    .current-card {
+      min-height: 310px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .current-card::after {
+      content: "";
+      position: absolute;
+
+      width: 260px;
+      height: 260px;
+
+      left: -90px;
+      top: -100px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(43,145,255,.18),
+          transparent 70%
+        );
+    }
+
+    .location {
+      color: #9eb1c8;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .temperature-row {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .weather-icon {
+      font-size: 78px;
+      line-height: 1;
+    }
+
+    .temperature {
+      font-size: 75px;
+      font-weight: 800;
+      letter-spacing: -5px;
+    }
+
+    .degree {
+      font-size: 30px;
+      color: #91a7bf;
+      vertical-align: top;
+      margin-right: 5px;
+    }
+
+    .weather-description {
+      color: #b8c8d9;
+      font-size: 16px;
+      margin-top: 4px;
+    }
+
+    .feels {
+      color: #8096ad;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .update-time {
+      margin-top: 22px;
+      color: #71879e;
+      font-size: 11px;
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .mini-stat {
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.035);
+    }
+
+    .mini-stat span {
+      display: block;
+      color: #8196ae;
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .mini-stat strong {
+      font-size: 15px;
+    }
+
+    /* ALERT */
+
+    .alert-card {
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: bold;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .alert {
+      padding: 16px;
+      border-radius: 15px;
+      margin-bottom: 10px;
+      border-right: 5px solid;
+    }
+
+    .alert:last-child {
+      margin-bottom: 0;
+    }
+
+    .alert strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .alert p {
+      font-size: 12px;
+      opacity: .85;
+    }
+
+    .alert-yellow {
+      background: rgba(255,193,7,.10);
+      border-color: #ffc107;
+      color: #ffe39a;
+    }
+
+    .alert-orange {
+      background: rgba(255,112,40,.12);
+      border-color: #ff7028;
+      color: #ffc09e;
+    }
+
+    .alert-green {
+      background: rgba(53,208,127,.08);
+      border-color: #35d07f;
+      color: #9be4bb;
+    }
+
+    .alert-red {
+      background: rgba(255,68,68,.10);
+      border-color: #ff4444;
+      color: #ffb4b4;
+    }
+
+    .official-note {
+      color: #72879d;
+      font-size: 10px;
+      margin-top: 12px;
+    }
+
+    /* GRID */
+
+    .grid {
+      display: grid;
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .info-box {
+      padding: 20px;
+    }
+
+    .info-icon {
+      font-size: 27px;
+      margin-bottom: 8px;
+    }
+
+    .info-label {
+      color: #8196ae;
+      font-size: 11px;
+    }
+
+    .info-value {
+      font-size: 21px;
+      font-weight: bold;
+      margin-top: 3px;
+    }
+
+    /* AQI */
+
+    .aqi-card {
+      margin-bottom: 20px;
+    }
+
+    .aqi-main {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .aqi-number {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(40,160,110,.15),
+          rgba(10,30,45,.9)
+        );
+
+      border: 2px solid rgba(53,208,127,.3);
+    }
+
+    .aqi-number strong {
+      font-size: 42px;
+    }
+
+    .aqi-number span {
+      color: #8298af;
+      font-size: 11px;
+    }
+
+    .aqi-status {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .pollutants {
+      display: grid;
+      grid-template-columns:
+        repeat(4,1fr);
+
+      gap: 10px;
+    }
+
+    .pollutant {
+      background: rgba(255,255,255,.035);
+      padding: 13px;
+      border-radius: 14px;
+    }
+
+    .pollutant span {
+      display: block;
+      color: #7f94aa;
+      font-size: 10px;
+    }
+
+    .pollutant strong {
+      font-size: 15px;
+    }
+
+    /* FORECAST */
+
+    .forecast {
+      display: grid;
+      grid-template-columns:
+        repeat(7,1fr);
+
+      gap: 10px;
+    }
+
+    .day {
+      padding: 17px 10px;
+      text-align: center;
+      background: rgba(255,255,255,.035);
+      border-radius: 17px;
+      border: 1px solid rgba(255,255,255,.04);
+    }
+
+    .day-name {
+      color: #94a9bf;
+      font-size: 11px;
+    }
+
+    .day-icon {
+      font-size: 31px;
+      margin: 12px 0;
+    }
+
+    .day-temp {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .day-min {
+      color: #71879d;
+      font-size: 11px;
+    }
+
+    .rain-prob {
+      margin-top: 8px;
+      color: #6dbdff;
+      font-size: 10px;
+    }
+
+    /* RADAR */
+
+    .radar {
+      margin-top: 20px;
+    }
+
+    .radar iframe {
+      width: 100%;
+      height: 520px;
+      border: 0;
+      border-radius: 18px;
+      background: #06101c;
+    }
+
+    .map-note {
+      color: #758ba2;
+      font-size: 10px;
+      margin-top: 10px;
+    }
+
+    /* SUN */
+
+    .sun-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .sun-item {
+      background: rgba(255,255,255,.035);
+      border-radius: 15px;
+      padding: 17px;
+    }
+
+    .sun-item span {
+      display: block;
+      color: #8196ae;
+      font-size: 11px;
+    }
+
+    .sun-item strong {
+      font-size: 19px;
+    }
+
+    /* LOADING */
+
+    #loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: #8297ad;
+    }
+
+    .spinner {
+      width: 45px;
+      height: 45px;
+      border: 4px solid rgba(255,255,255,.1);
+      border-top-color: #48a8ff;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+
+      animation:
+        spin .8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    #content {
+      display: none;
+    }
+
+    .error {
+      padding: 20px;
+      border-radius: 15px;
+      background: rgba(255,60,60,.1);
+      border: 1px solid rgba(255,60,60,.2);
+      color: #ffaaaa;
+      text-align: center;
+    }
+
+    /* FOOTER */
+
+    footer {
+      text-align: center;
+      padding: 30px 0 45px;
+      color: #61778e;
+      font-size: 11px;
+    }
+
+    footer strong {
+      color: #9aafc4;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 950px) {
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-template-columns:
+          repeat(2,1fr);
+      }
+
+      .forecast {
+        grid-template-columns:
+          repeat(4,1fr);
+      }
+
+      .aqi-main {
+        grid-template-columns: 1fr;
+      }
+
+      .pollutants {
+        grid-template-columns:
+          repeat(2,1fr);
+      }
+
+    }
+
+    @media (max-width: 600px) {
+
+      header {
+        position: relative;
+      }
+
+      .header-inner {
+        align-items: flex-start;
+      }
+
+      .brand h1 {
+        font-size: 17px;
+      }
+
+      .status {
+        display: none;
+      }
+
+      main {
+        padding-top: 18px;
+      }
+
+      .card {
+        padding: 18px;
+        border-radius: 20px;
+      }
+
+      .temperature {
+        font-size: 58px;
+      }
+
+      .weather-icon {
+        font-size: 58px;
+      }
+
+      .temperature-row {
+        gap: 14px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .info-box {
+        padding: 15px;
+      }
+
+      .info-value {
+        font-size: 17px;
+      }
+
+      .forecast {
+        grid-template-columns:
+          repeat(2,1fr);
+      }
+
+      .radar iframe {
+        height: 400px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="container header-inner">
+
+    <div class="brand">
+
+      <div class="logo">
+        🌦️
+      </div>
+
+      <div>
+        <h1>
+          هواشناسی انجمن ارومیه
+        </h1>
+
+        <p>
+          سامانه پایش و پیش‌بینی آب‌وهوای ارومیه
+        </p>
+      </div>
+
+    </div>
+
+    <div class="header-actions">
+
+      <div class="status">
+        ● سیستم فعال
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<main>
+
+<div class="container">
+
+  <div id="loading">
+
+    <div class="spinner"></div>
+
+    <div>
+      در حال دریافت اطلاعات هواشناسی ارومیه...
+    </div>
+
+  </div>
+
+
+  <div id="content">
+
+    <!-- وضعیت فعلی -->
+
+    <section class="hero">
+
+      <div class="card current-card">
+
+        <div class="location">
+          📍 ارومیه، آذربایجان غربی
+        </div>
+
+        <div class="temperature-row">
+
+          <div
+            class="weather-icon"
+            id="weatherIcon"
+          >
+            🌤️
+          </div>
+
+          <div>
+
+            <div>
+              <span
+                class="temperature"
+                id="temperature"
+              >
+                --
+              </span>
+
+              <span class="degree">
+                °C
+              </span>
+            </div>
+
+            <div
+              class="weather-description"
+              id="weatherDescription"
+            >
+              --
+            </div>
+
+            <div
+              class="feels"
+              id="feels"
+            >
+              --
+            </div>
+
+          </div>
+
+        </div>
+
+        <div
+          class="update-time"
+          id="updateTime"
+        >
+          آخرین بروزرسانی: --
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="section-title">
+          📌 وضعیت سریع
+        </div>
+
+        <div class="mini-stats">
+
+          <div class="mini-stat">
+            <span>رطوبت</span>
+            <strong id="humidity">--</strong>
+          </div>
+
+          <div class="mini-stat">
+            <span>باد</span>
+            <strong id="wind">--</strong>
+          </div>
+
+          <div class="mini-stat">
+            <span>ابرناکی</span>
+            <strong id="cloud">--</strong>
+          </div>
+
+          <div class="mini-stat">
+            <span>بارش فعلی</span>
+            <strong id="precipitation">--</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- هشدارها -->
+
+    <section class="card alert-card">
+
+      <div class="section-title">
+        ⚠️ هشدارهای خودکار هواشناسی ارومیه
+      </div>
+
+      <div id="alerts">
+
+        <div class="alert alert-green">
+          در حال بررسی شرایط جوی...
+        </div>
+
+      </div>
+
+      <div class="official-note">
+        توجه: این هشدارها به‌صورت خودکار بر اساس داده‌های هواشناسی
+        تولید می‌شوند و جایگزین هشدار رسمی سازمان هواشناسی نیستند.
+      </div>
+
+    </section>
+
+
+    <!-- اطلاعات جوی -->
+
+    <section class="grid">
+
+      <div class="card info-box">
+
+        <div class="info-icon">
+          💧
+        </div>
+
+        <div class="info-label">
+          رطوبت نسبی
+        </div>
+
+        <div
+          class="info-value"
+          id="humidity2"
+        >
+          --
+        </div>
+
+      </div>
+
+
+      <div class="card info-box">
+
+        <div class="info-icon">
+          💨
+        </div>
+
+        <div class="info-label">
+          سرعت باد
+        </div>
+
+        <div
+          class="info-value"
+          id="wind2"
+        >
+          --
+        </div>
+
+      </div>
+
+
+      <div class="card info-box">
+
+        <div class="info-icon">
+          ☁️
+        </div>
+
+        <div class="info-label">
+          پوشش ابر
+        </div>
+
+        <div
+          class="info-value"
+          id="cloud2"
+        >
+          --
+        </div>
+
+      </div>
+
+
+      <div class="card info-box">
+
+        <div class="info-icon">
+          ☀️
+        </div>
+
+        <div class="info-label">
+          شاخص UV
+        </div>
+
+        <div
+          class="info-value"
+          id="uv"
+        >
+          --
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- کیفیت هوا -->
+
+    <section class="card aqi-card">
+
+      <div class="section-title">
+        🌫️ کیفیت هوای ارومیه
+      </div>
+
+      <div class="aqi-main">
+
+        <div class="aqi-number">
+
+          <strong id="aqi">
+            --
+          </strong>
+
+          <span>
+            European AQI
+          </span>
+
+        </div>
+
+
+        <div>
+
+          <div
+            class="aqi-status"
+            id="aqiStatus"
+          >
+            --
+          </div>
+
+
+          <div class="pollutants">
+
+            <div class="pollutant">
+
+              <span>
+                PM2.5
+              </span>
+
+              <strong id="pm25">
+                --
+              </strong>
+
+            </div>
+
+
+            <div class="pollutant">
+
+              <span>
+                PM10
+              </span>
+
+              <strong id="pm10">
+                --
+              </strong>
+
+            </div>
+
+
+            <div class="pollutant">
+
+              <span>
+                NO₂
+              </span>
+
+              <strong id="no2">
+                --
+              </strong>
+
+            </div>
+
+
+            <div class="pollutant">
+
+              <span>
+                O₃
+              </span>
+
+              <strong id="o3">
+                --
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- طلوع و غروب -->
+
+    <section class="card">
+
+      <div class="section-title">
+        🌅 خورشید
+      </div>
+
+      <div class="sun-grid">
+
+        <div class="sun-item">
+
+          <span>
+            🌄 طلوع خورشید
+          </span>
+
+          <strong id="sunrise">
+            --
+          </strong>
+
+        </div>
+
+        <div class="sun-item">
+
+          <span>
+            🌇 غروب خورشید
+          </span>
+
+          <strong id="sunset">
+            --
+          </strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- پیش بینی -->
+
+    <section class="card" style="margin-top:20px">
+
+      <div class="section-title">
+        📅 پیش‌بینی ۷ روز آینده
+      </div>
+
+      <div
+        class="forecast"
+        id="forecast"
+      >
+      </div>
+
+    </section>
+
+
+    <!-- رادار -->
+
+    <section class="card radar">
+
+      <div class="section-title">
+        🛰️ رادار بارش زنده ارومیه
+      </div>
+
+      <iframe
+        src="https://www.rainviewer.com/map.html?loc=37.5553,45.0724,7"
+        allowfullscreen>
+      </iframe>
+
+      <div class="map-note">
+        رادار بالا برای نمایش وضعیت بارش و ابرهای بارشی منطقه استفاده می‌شود.
+      </div>
+
+    </section>
+
+  </div>
+
+</div>
+
+</main>
+
+
+<footer>
+
+  <strong>
+    هواشناسی انجمن ارومیه
+  </strong>
+
+  <br>
+
+  سامانه پایش آب‌وهوا و کیفیت هوای ارومیه
+
+  <br><br>
+
+  اطلاعات هواشناسی به‌صورت خودکار دریافت و بروزرسانی می‌شوند.
+
+</footer>
+
+
+<script>
+
+  /*
+  ==========================================
+  تنظیمات اصلی
+  ==========================================
+  */
+
+  const LAT = 37.5553;
+  const LON = 45.0724;
+
+
+  /*
+  ==========================================
+  توضیح وضعیت هوا
+  ==========================================
+  */
+
+  function weatherText(code) {
+
+    const map = {
+
+      0: "صاف",
+      1: "عمدتاً صاف",
+      2: "نیمه ابری",
+      3: "ابری",
+
+      45: "مه",
+      48: "مه یخ‌زده",
+
+      51: "نم‌نم باران",
+      53: "نم‌نم باران",
+      55: "نم‌نم باران شدید",
+
+      56: "باران یخ‌زده",
+      57: "باران یخ‌زده شدید",
+
+      61: "بارش باران",
+      63: "بارش باران",
+      65: "باران شدید",
+
+      66: "باران یخ‌زده",
+      67: "باران یخ‌زده شدید",
+
+      71: "برف",
+      73: "برف",
+      75: "برف شدید",
+
+      77: "دانه‌های برف",
+
+      80: "رگبار باران",
+      81: "رگبار باران",
+      82: "رگبار شدید",
+
+      85: "رگبار برف",
+      86: "رگبار برف شدید",
+
+      95: "رعدوبرق",
+      96: "رعدوبرق و تگرگ",
+      99: "رعدوبرق و تگرگ شدید"
+
+    };
+
+    return map[code] || "نامشخص";
+  }
+
+
+  /*
+  ==========================================
+  آیکون وضعیت هوا
+  ==========================================
+  */
+
+  function weatherIcon(code) {
+
+    if (code === 0)
+      return "☀️";
+
+    if ([1,2].includes(code))
+      return "🌤️";
+
+    if (code === 3)
+      return "☁️";
+
+    if ([45,48].includes(code))
+      return "🌫️";
+
+    if ([51,53,55,61,63,65,80,81,82].includes(code))
+      return "🌧️";
+
+    if ([71,73,75,77,85,86].includes(code))
+      return "🌨️";
+
+    if ([95,96,99].includes(code))
+      return "⛈️";
+
+    return "🌤️";
+  }
+
+
+  /*
+  ==========================================
+  وضعیت AQI
+  ==========================================
+  */
+
+  function aqiText(aqi) {
+
+    if (aqi === null || aqi === undefined)
+      return "نامشخص";
+
+    if (aqi <= 20)
+      return "🟢 کیفیت هوا بسیار خوب";
+
+    if (aqi <= 40)
+      return "🟢 کیفیت هوا خوب";
+
+    if (aqi <= 60)
+      return "🟡 کیفیت هوا قابل قبول";
+
+    if (aqi <= 80)
+      return "🟠 کیفیت هوا متوسط";
+
+    if (aqi <= 100)
+      return "🟠 کیفیت هوا نامطلوب";
+
+    if (aqi <= 150)
+      return "🔴 کیفیت هوا ناسالم";
+
+    return "🔴 کیفیت هوا بسیار ناسالم";
+  }
+
+
+  /*
+  ==========================================
+  ساعت
+  ==========================================
+  */
+
+  function formatTime(value) {
+
+    if (!value)
+      return "--";
+
+    const parts =
+      value.split("T");
+
+    return parts[1] || value;
+  }
+
+
+  /*
+  ==========================================
+  تاریخ
+  ==========================================
+  */
+
+  function dayName(dateStrin
