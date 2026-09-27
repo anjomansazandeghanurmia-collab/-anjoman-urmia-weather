@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>سایت اختصاصی هواشناسی انجمن ارومیه</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Tahoma,Arial,sans-serif;
+    background:#eef7fc;
+    color:#172033;
+}
+
+header{
+    background:linear-gradient(135deg,#075985,#0284c7);
+    color:white;
+    padding:20px;
+}
+
+.header{
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:21px;
+    font-weight:bold;
+}
+
+.live{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#22c55e;
+    box-shadow:0 0 10px #22c55e;
+}
+
+main{
+    max-width:1200px;
+    margin:auto;
+    padding:25px 15px 50px;
+}
+
+.error{
+    display:none;
+    background:#fee2e2;
+    color:#991b1b;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+.hero{
+    background:linear-gradient(135deg,#0284c7,#0f766e);
+    color:white;
+    border-radius:25px;
+    padding:30px;
+    margin-bottom:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+}
+
+.hero h1{
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    font-size:17px;
+    opacity:.9;
+    margin-bottom:25px;
+}
+
+.current{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.icon{
+    font-size:75px;
+}
+
+.temp{
+    font-size:80px;
+    font-weight:bold;
+}
+
+.desc{
+    font-size:20px;
+}
+
+.update{
+    margin-top:20px;
+    font-size:13px;
+    opacity:.85;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.card{
+    background:white;
+    border-radius:20px;
+    padding:22px;
+    text-align:center;
+    box-shadow:0 8px 25px rgba(0,0,0,.07);
+}
+
+.card-icon{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.label{
+    color:#64748b;
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.value{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.title{
+    font-size:24px;
+    margin:32px 0 15px;
+}
+
+.forecast{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:10px;
+}
+
+.day{
+    background:white;
+    border-radius:18px;
+    padding:17px 8px;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+}
+
+.day-name{
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.day-date{
+    color:#64748b;
+    font-size:11px;
+}
+
+.day-icon{
+    font-size:35px;
+    margin:12px 0;
+}
+
+.day-temp{
+    font-size:18px;
+    font-weight:bold;
+}
+
+.day-info{
+    font-size:12px;
+    color:#475569;
+    line-height:2;
+    margin-top:10px;
+}
+
+.rain-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.rain-card{
+    background:white;
+    border-radius:20px;
+    padding:22px;
+    box-shadow:0 8px 25px rgba(0,0,0,.07);
+}
+
+.rain-title{
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.rain-value{
+    font-size:30px;
+    font-weight:bold;
+}
+
+.air{
+    background:white;
+    border-radius:20px;
+    padding:22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 8px 25px rgba(0,0,0,.07);
+}
+
+.air-status{
+    background:#dcfce7;
+    color:#166534;
+    padding:12px 22px;
+    border-radius:30px;
+    font-weight:bold;
+}
+
+footer{
+    background:#0f172a;
+    color:#cbd5e1;
+    text-align:center;
+    padding:30px;
+}
+
+@media(max-width:900px){
+
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .forecast{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    .header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .hero{
+        padding:25px;
+    }
+
+    .hero h1{
+        font-size:28px;
+    }
+
+    .current{
+        gap:10px;
+    }
+
+    .icon{
+        font-size:55px;
+    }
+
+    .temp{
+        font-size:65px;
+    }
+
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+        gap:10px;
+    }
+
+    .card{
+        padding:18px 8px;
+    }
+
+    .forecast{
+        display:flex;
+        overflow-x:auto;
+    }
+
+    .day{
+        min-width:135px;
+    }
+
+    .rain-grid{
+        grid-template-columns:1fr;
+    }
+
+    .air{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="header">
+
+<div class="logo">
+🌤️ سایت اختصاصی هواشناسی انجمن ارومیه
+</div>
+
+<div class="live">
+<span class="dot"></span>
+اطلاعات زنده
+</div>
+
+</div>
+
+</header>
+
+
+<main>
+
+<div id="error" class="error"></div>
+
+
+<section class="hero">
+
+<h1>
+هواشناسی ارومیه
+</h1>
+
+<div class="subtitle">
+وضعیت لحظه‌ای آب‌وهوا و پیش‌بینی روزهای آینده
+</div>
+
+<div class="current">
+
+<div id="weatherIcon" class="icon">
+🌤️
+</div>
+
+<div>
+
+<div id="temperature" class="temp">
+--
+</div>
+
+<div id="description" class="desc">
+در حال دریافت اطلاعات...
+</div>
+
+</div>
+
+</div>
+
+<div class="update">
+
+آخرین بروزرسانی:
+<span id="update">
+--
+
+</span>
+
+</div>
+
+</section>
+
+
+<section class="cards">
+
+
+<div class="card">
+
+<div class="card-icon">
+🌡️
+</div>
+
+<div class="label">
+دمای احساس‌شده
+</div>
+
+<div id="feels" class="value">
+--°
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+💧
+</div>
+
+<div class="label">
+رطوبت هوا
+</div>
+
+<div id="humidity" class="value">
+--%
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+💨
+</div>
+
+<div class="label">
+سرعت باد
+</div>
+
+<div id="wind" class="value">
+-- km/h
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+🧭
+</div>
+
+<div class="label">
+جهت باد
+</div>
+
+<div id="windDirection" class="value">
+--
+</div>
+
+</div>
+
+</section>
+
+
+<h2 class="title">
+📅 پیش‌بینی ۷ روز آینده
+</h2>
+
+<section id="forecast" class="forecast">
+
+<div class="day">
+در حال دریافت...
+</div>
+
+</section>
+
+
+<h2 class="title">
+🌧️ وضعیت بارش امروز
+</h2>
+
+
+<section class="rain-grid">
+
+
+<div class="rain-card">
+
+<div class="rain-title">
+🌧️ احتمال بارش
+</div>
+
+<div id="rainProbability" class="rain-value">
+--%
+</div>
+
+</div>
+
+
+<div class="rain-card">
+
+<div class="rain-title">
+🌧️ مقدار باران
+</div>
+
+<div id="rainAmount" class="rain-value">
+-- mm
+</div>
+
+</div>
+
+
+<div class="rain-card">
+
+<div class="rain-title">
+❄️ مقدار برف
+</div>
+
+<div id="snowAmount" class="rain-value">
+-- cm
+</div>
+
+</div>
+
+</section>
+
+
+<h2 class="title">
+🫁 کیفیت هوا
+</h2>
+
+
+<section class="air">
+
+<div>
+
+<strong>
+کیفیت هوای ارومیه
+</strong>
+
+<br><br>
+
+<span id="airText">
+در حال بررسی...
+</span>
+
+</div>
+
+<div id="airStatus" class="air-status">
+در حال بررسی
+</div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+<strong>
+سایت اختصاصی هواشناسی انجمن ارومیه
+</strong>
+
+<br><br>
+
+دما • باد • بارش • رطوبت • پیش‌بینی هوا
+
+<br><br>
+
+<span id="year"></span>
+
+</footer>
+
+
+<script>
+
+/* =================================
+   مختصات ارومیه
+================================= */
+
+const LAT = 37.5527;
+const LON = 45.0761;
+
+
+/* =================================
+   ساخت آدرس API
+================================= */
+
+const params = new URLSearchParams({
+
+    latitude: LAT,
+
+    longitude: LON,
+
+    current:
+    "temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,wind_direction_10m,weather_code",
+
+    daily:
+    "weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max,precipitation_probability_max,rain_sum,snowfall_sum",
+
+    timezone:
+    "Asia/Tehran",
+
+    forecast_days:
+    "7"
+
+});
+
+
+const WEATHER_URL =
+"https://api.open-meteo.com/v1/forecast?"
++ params.toString();
+
+
+/* =================================
+   وضعیت هوا
+================================= */
+
+function weatherInfo(code){
+
+    const data = {
+
+        0:["☀️","صاف"],
+
+        1:["🌤️","عمدتاً صاف"],
+
+        2:["⛅","نیمه‌ابری"],
+
+        3:["☁️","ابری"],
+
+        45:["🌫️","مه‌آلود"],
+
+        48:["🌫️","مه‌آلود"],
+
+        51:["🌦️","نم‌نم باران"],
+
+        53:["🌦️","باران خفیف"],
+
+        55:["🌧️","باران"],
+
+        61:["🌧️","باران خفیف"],
+
+        63:["🌧️","باران"],
+
+        65:["🌧️","باران شدید"],
+
+        71:["🌨️","برف خفیف"],
+
+        73:["❄️","برف"],
+
+        75:["❄️","برف شدید"],
+
+        77:["❄️","دانه‌های برف"],
+
+        80:["🌦️","رگبار"],
+
+        81:["🌧️","رگبار باران"],
+
+        82:["⛈️","رگبار شدید"],
+
+        85:["🌨️","رگبار برف"],
+
+        86:["❄️","رگبار برف شدید"],
+
+        95:["⛈️","رعدوبرق"],
+
+        96:["⛈️","رعدوبرق و تگرگ"],
+
+        99:["⛈️","رعدوبرق شدید"]
+
+    };
+
+    return data[code] || ["🌤️","نامشخص"];
+
+}
+
+
+/* =================================
+   جهت باد
+================================= */
+
+function getWindDirection(degree){
+
+    const directions = [
+
+        "شمال",
+
+        "شمال‌شرق",
+
+        "شرق",
+
+        "جنوب‌شرق",
+
+        "جنوب",
+
+        "جنوب‌غرب",
+
+        "غرب",
+
+        "شمال‌غرب"
+
+    ];
+
+    return directions[
+        Math.round(degree / 45) % 8
+    ];
+
+}
+
+
+/* =================================
+   نمایش خطا
+================================= */
+
+function showError(message){
+
+    const error =
+    document.getElementById("error");
+
+    error.innerText =
+    "⚠️ " + message;
+
+    error.style.display =
+    "block";
+
+}
+
+
+/* =================================
+   دریافت اطلاعات هوا
+================================= */
+
+async function loadWeather(){
+
+    try{
+
+        const controller =
+        new AbortController();
+
+        const timeout =
+        setTimeout(
+            () => controller.abort(),
+            15000
+        );
+
+
+        const response =
+        await fetch(
+            WEATHER_URL,
+            {
+                method:"GET",
+
+                cache:"no-store",
+
+                signal:
+                controller.signal
+            }
+        );
+
+
+        clearTimeout(timeout);
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "API پاسخ صحیح نداد"
+            );
+
+        }
+
+
+        const data =
+        await response.json();
+
+
+        console.log(
+            "OPEN METEO:",
+            data
+        );
+
+
+        if(!data.current){
+
+            throw new Error(
+                "اطلاعات فعلی هوا دریافت نشد"
+            );
+
+        }
+
+
+        const current =
+        data.current;
+
+
+        /* =========================
+           اطلاعات فعلی
+        ========================= */
+
+
+        const weather =
+        weatherInfo(
+            current.weather_code
+        );
+
+
+        document.getElementById(
+            "weatherIcon"
+        ).innerText =
+        weather[0];
+
+
+        document.getElementById(
+            "temperature"
+        ).innerText =
+        Math.round(
+            current.temperature_2m
+        ) + "°";
+
+
+        document.getElementById(
+            "description"
+        ).innerText =
+        weather[1];
+
+
+        document.getElementById(
+            "feels"
+        ).innerText =
+        Math.round(
+            current.apparent_temperature
+        ) + "°";
+
+
+        document.getElementById(
+            "humidity"
+        ).innerText =
+        current.relative_humidity_2m
+        + "%";
+
+
+        document.getElementById(
+            "wind"
+        ).innerText =
+        Math.round(
+            current.wind_speed_10m
+        )
+        + " km/h";
+
+
+        document.getElementById(
+            "windDirection"
+        ).innerText =
+        getWindDirection(
+            current.wind_direction_10m
+        );
+
+
+        document.getElementById(
+            "update"
+        ).innerText =
+        new Date().toLocaleTimeString(
+            "fa-IR"
+        );
+
+
+        /* =========================
+           پیش‌بینی
+        ========================= */
+
+        showForecast(
+            data.daily
+        );
+
+
+        /* =========================
+           بارش
+        ========================= */
+
+        showRain(
+            data.daily
+        );
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "WEATHER ERROR:",
+            error
+        );
+
+
+        document.getElementById(
+            "description"
+        ).innerText =
+        "خطا در دریافت اطلاعات";
+
+
+        showError(
+            "ارتباط با سرویس هواشناسی برقرار نشد."
+        );
+
+    }
+
+}
+
+
+/* =================================
+   پیش‌بینی ۷ روز
+================================= */
+
+function showForecast(daily){
+
+    const box =
+    document.getElementById(
+        "forecast"
+    );
+
+
+    box.innerHTML = "";
+
+
+    for(
+        let i = 0;
+        i < daily.time.length;
+        i++
+    ){
+
+        let dayName;
+
+
+        if(i === 0){
+
+            dayName =
+            "امروز";
+
+        }
+        else if(i === 1){
+
+            dayName =
+            "فردا";
+
+        }
+        else{
+
+            dayName =
+            new Date(
+                daily.time[i]
+            ).toLocaleDateString(
+                "fa-IR",
+                {
+                    weekday:"long"
+                }
+            );
+
+        }
+
+
+        const weather =
+        weatherInfo(
+            daily.weather_code[i]
+        );
+
+
+        const card =
+        document.createElement(
+            "div"
+        );
+
+        card.className =
+        "day";
+
+
+        card.innerHTML = `
+
+            <div class="day-name">
+                ${dayName}
+            </div>
+
+            <div class="day-date">
+                ${new Date(
+                    daily.time[i]
+                ).toLocaleDateString("fa-IR")}
+            </div>
+
+            <div class="day-icon">
+                ${weather[0]}
+            </div>
+
+            <div>
+                ${weather[1]}
+            </div>
+
+            <div class="day-temp">
+
+                ${Math.round(
+                    daily.temperature_2m_max[i]
+                )}°
+
+                /
+
+                ${Math.round(
+                    daily.temperature_2m_min[i]
+                )}°
+
+            </div>
+
+            <div class="day-info">
+
+                💨 باد:
+                ${Math.round(
+                    daily.wind_speed_10m_max[i]
+                )}
+                km/h
+
+                <br>
+
+                🌧️ بارش:
+                ${daily.precipitation_probability_max[i] || 0}%
+
+                <br>
+
+                🌧️ باران:
+                ${(daily.rain_sum[i] || 0).toFixed(1)}
+                mm
+
+                <br>
+
+                ❄️ برف:
+                ${(daily.snowfall_sum[i] || 0).toFixed(1)}
+                cm
+
+            </div>
+
+        `;
+
+
+        box.appendChild(card);
+
+    }
+
+}
+
+
+/* =================================
+   بارش امروز
+================================= */
+
+function showRain(daily){
+
+    document.getElementById(
+        "rainProbability"
+    ).innerText =
+    (daily.precipitation_probability_max[0] || 0)
+    + "%";
+
+
+    document.getElementById(
+        "rainAmount"
+    ).innerText =
+    (daily.rain_sum[0] || 0).toFixed(1)
+    + " mm";
+
+
+    document.getElementById(
+        "snowAmount"
+    ).innerText =
+    (daily.snowfall_sum[0] || 0).toFixed(1)
+    + " cm";
+
+}
+
+
+/* =================================
+   کیفیت هوا
+================================= */
+
+async function loadAir(){
+
+    try{
+
+        const airParams =
+        new URLSearchParams({
+
+            latitude:LAT,
+
+            longitude:LON,
+
+            current:"european_aqi",
+
+            timezone:"Asia/Tehran"
+
+        });
+
+
+        const url =
+        "https://air-quality-api.open-meteo.com/v1/air-quality?"
+        + airParams.toString();
+
+
+        const response =
+        await fetch(
+            url,
+            {
+                cache:"no-store"
+            }
+        );
+
+
+        if(!response.ok)
+            throw new Error();
+
+
+        const data =
+        await response.json();
+
+
+        const aqi =
+        data.current?.european_aqi;
+
+
+        if(aqi == null){
+
+            document.getElementById(
+                "airStatus"
+            ).innerText =
+            "نامشخص";
+
+            return;
+
+        }
+
+
+        if(aqi <= 50){
+
+            document.getElementById(
+                "airStatus"
+            ).innerText =
+            "قابل قبول";
+
+
+            document.getElementById(
+                "airText"
+            ).innerText =
+            "کیفیت هوا در محدوده قابل قبول است.";
+
+        }
+
+        else{
+
+            document.getElementById(
+                "airStatus"
+            ).innerText =
+            "نامطلوب";
+
+
+            document.getElementById(
+                "airText"
+            ).innerText =
+            "کیفیت هوا در حال حاضر نامطلوب است.";
+
+        }
+
+    }
+
+    catch(error){
+
+        document.getElementById(
+            "airStatus"
+        ).innerText =
+        "نامشخص";
+
+    }
+
+}
+
+
+/* =================================
+   سال
+================================= */
+
+document.getElementById(
+    "year"
+).innerText =
+new Date().getFullYear();
+
+
+/* =================================
+   اجرای سایت
+================================= */
+
+loadWeather();
+
+loadAir();
+
+
+/* =================================
+   بروزرسانی خودکار
+================================= */
+
+setInterval(
+    function(){
+
+        loadWeather();
+
+        loadAir();
+
+    },
+    10 * 60 * 1000
+);
+
+</script>
+
+</body>
+
+  </html>
