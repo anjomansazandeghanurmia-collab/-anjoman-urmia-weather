@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#075985"
+  >
+
+  <title>
+    سایت اختصاصی هواشناسی انجمن ارومیه
+  </title>
+
+  <!-- Chart.js برای نمودار دما -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    body {
+
+      font-family:
+        Tahoma,
+        Arial,
+        sans-serif;
+
+      background:
+        #eef6fb;
+
+      color:
+        #172033;
+
+      min-height:
+        100vh;
+
+    }
+
+
+    /* =========================
+       Header
+    ========================= */
+
+    header {
+
+      background:
+        linear-gradient(
+          135deg,
+          #075985,
+          #0284c7
+        );
+
+      color:
+        white;
+
+      padding:
+        20px;
+
+      position:
+        sticky;
+
+      top:
+        0;
+
+      z-index:
+        100;
+
+      box-shadow:
+        0 5px 25px
+        rgba(0,0,0,.15);
+
+    }
+
+
+    .header-inner {
+
+      max-width:
+        1200px;
+
+      margin:
+        auto;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        space-between;
+
+      gap:
+        20px;
+
+    }
+
+
+    .logo {
+
+      font-size:
+        21px;
+
+      font-weight:
+        bold;
+
+    }
+
+
+    .live {
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      gap:
+        8px;
+
+      font-size:
+        13px;
+
+    }
+
+
+    .live-dot {
+
+      width:
+        10px;
+
+      height:
+        10px;
+
+      border-radius:
+        50%;
+
+      background:
+        #22c55e;
+
+      box-shadow:
+        0 0 12px
+        #22c55e;
+
+    }
+
+
+    /* =========================
+       Main
+    ========================= */
+
+    main {
+
+      max-width:
+        1200px;
+
+      margin:
+        auto;
+
+      padding:
+        30px 18px 50px;
+
+    }
+
+
+    /* =========================
+       Error
+    ========================= */
+
+    .error {
+
+      display:
+        none;
+
+      background:
+        #fee2e2;
+
+      color:
+        #991b1b;
+
+      padding:
+        15px;
+
+      border-radius:
+        12px;
+
+      margin-bottom:
+        20px;
+
+    }
+
+
+    /* =========================
+       Hero
+    ========================= */
+
+    .hero {
+
+      background:
+        linear-gradient(
+          135deg,
+          #0284c7,
+          #0f766e
+        );
+
+      color:
+        white;
+
+      border-radius:
+        28px;
+
+      padding:
+        35px;
+
+      margin-bottom:
+        25px;
+
+      box-shadow:
+        0 15px 40px
+        rgba(2,132,199,.25);
+
+    }
+
+
+    .hero h1 {
+
+      font-size:
+        clamp(25px,5vw,42px);
+
+      margin-bottom:
+        8px;
+
+    }
+
+
+    .hero-subtitle {
+
+      opacity:
+        .9;
+
+      margin-bottom:
+        25px;
+
+    }
+
+
+    .current-weather {
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      gap:
+        25px;
+
+      flex-wrap:
+        wrap;
+
+    }
+
+
+    .current-icon {
+
+      font-size:
+        75px;
+
+    }
+
+
+    .temperature {
+
+      font-size:
+        clamp(60px,12vw,100px);
+
+      font-weight:
+        bold;
+
+      line-height:
+        1;
+
+    }
+
+
+    .description {
+
+      font-size:
+        20px;
+
+      margin-top:
+        8px;
+
+    }
+
+
+    .last-update {
+
+      margin-top:
+        20px;
+
+      font-size:
+        13px;
+
+      opacity:
+        .8;
+
+    }
+
+
+    /* =========================
+       Cards
+    ========================= */
+
+    .info-grid {
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(4,1fr);
+
+      gap:
+        18px;
+
+      margin-bottom:
+        25px;
+
+    }
+
+
+    .info-card {
+
+      background:
+        white;
+
+      border-radius:
+        20px;
+
+      padding:
+        22px;
+
+      text-align:
+        center;
+
+      box-shadow:
+        0 8px 25px
+        rgba(15,23,42,.07);
+
+    }
+
+
+    .info-icon {
+
+      font-size:
+        34px;
+
+      margin-bottom:
+        12px;
+
+    }
+
+
+    .info-label {
+
+      color:
+        #64748b;
+
+      font-size:
+        14px;
+
+      margin-bottom:
+        8px;
+
+    }
+
+
+    .info-value {
+
+      font-size:
+        24px;
+
+      font-weight:
+        bold;
+
+    }
+
+
+    /* =========================
+       Section
+    ========================= */
+
+    .section-title {
+
+      font-size:
+        25px;
+
+      margin:
+        35px 0 18px;
+
+    }
+
+
+    /* =========================
+       Chart
+    ========================= */
+
+    .chart-card {
+
+      background:
+        white;
+
+      padding:
+        25px;
+
+      border-radius:
+        22px;
+
+      height:
+        380px;
+
+      box-shadow:
+        0 8px 25px
+        rgba(15,23,42,.07);
+
+    }
+
+
+    /* =========================
+       7 Days
+    ========================= */
+
+    .forecast {
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(7,1fr);
+
+      gap:
+        12px;
+
+    }
+
+
+    .forecast-card {
+
+      background:
+        white;
+
+      border-radius:
+        18px;
+
+      padding:
+        18px 10px;
+
+      text-align:
+        center;
+
+      box-shadow:
+        0 8px 20px
+        rgba(15,23,42,.06);
+
+    }
+
+
+    .forecast-day {
+
+      font-weight:
+        bold;
+
+      margin-bottom:
+        10px;
+
+    }
+
+
+    .forecast-date {
+
+      font-size:
+        12px;
+
+      color:
+        #64748b;
+
+    }
+
+
+    .forecast-icon {
+
+      font-size:
+        36px;
+
+      margin:
+        12px 0;
+
+    }
+
+
+    .forecast-temp {
+
+      font-size:
+        18px;
+
+      font-weight:
+        bold;
+
+    }
+
+
+    .forecast-min {
+
+      color:
+        #64748b;
+
+      margin-top:
+        4px;
+
+    }
+
+
+    .forecast-detail {
+
+      margin-top:
+        13px;
+
+      font-size:
+        13px;
+
+      color:
+        #475569;
+
+      line-height:
+        1.9;
+
+    }
+
+
+    /* =========================
+       Rain / Snow
+    ========================= */
+
+    .precipitation-grid {
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(3,1fr);
+
+      gap:
+        18px;
+
+    }
+
+
+    .precipitation-card {
+
+      background:
+        white;
+
+      border-radius:
+        20px;
+
+      padding:
+        24px;
+
+      box-shadow:
+        0 8px 25px
+        rgba(15,23,42,.07);
+
+    }
+
+
+    .precipitation-title {
+
+      font-weight:
+        bold;
+
+      margin-bottom:
+        10px;
+
+    }
+
+
+    .precipitation-value {
+
+      font-size:
+        30px;
+
+      font-weight:
+        bold;
+
+    }
+
+
+    .precipitation-description {
+
+      color:
+        #64748b;
+
+      margin-top:
+        8px;
+
+      font-size:
+        13px;
+
+    }
+
+
+    /* =========================
+       Air Quality
+    ========================= */
+
+    .air-card {
+
+      background:
+        white;
+
+      border-radius:
+        22px;
+
+      padding:
+        25px;
+
+      box-shadow:
+        0 8px 25px
+        rgba(15,23,42,.07);
+
+      display:
+        flex;
+
+      justify-content:
+        space-between;
+
+      align-items:
+        center;
+
+      gap:
+        20px;
+
+    }
+
+
+    .air-title {
+
+      font-size:
+        20px;
+
+      font-weight:
+        bold;
+
+      margin-bottom:
+        8px;
+
+    }
+
+
+    .air-description {
+
+      color:
+        #64748b;
+
+      font-size:
+        14px;
+
+    }
+
+
+    .air-status {
+
+      padding:
+        12px 22px;
+
+      border-radius:
+        30px;
+
+      background:
+        #dcfce7;
+
+      color:
+        #166534;
+
+      font-weight:
+        bold;
+
+      white-space:
+        nowrap;
+
+    }
+
+
+    /* =========================
+       Loading
+    ========================= */
+
+    .loading {
+
+      text-align:
+        center;
+
+      color:
+        #64748b;
+
+      padding:
+        40px;
+
+    }
+
+
+    /* =========================
+       Footer
+    ========================= */
+
+    footer {
+
+      background:
+        #0f172a;
+
+      color:
+        #cbd5e1;
+
+      text-align:
+        center;
+
+      padding:
+        30px 15px;
+
+      margin-top:
+        30px;
+
+    }
+
+
+    /* =========================
+       Tablet
+    ========================= */
+
+    @media(max-width:900px) {
+
+      .info-grid {
+
+        grid-template-columns:
+          repeat(2,1fr);
+
+      }
+
+
+      .forecast {
+
+        grid-template-columns:
+          repeat(4,1fr);
+
+      }
+
+    }
+
+
+    /* =========================
+       Mobile
+    ========================= */
+
+    @media(max-width:600px) {
+
+      header {
+
+        padding:
+          16px;
+
+      }
+
+
+      .header-inner {
+
+        flex-direction:
+          column;
+
+        align-items:
+          flex-start;
+
+      }
+
+
+      main {
+
+        padding:
+          18px 12px 35px;
+
+      }
+
+
+      .hero {
+
+        padding:
+          25px;
+
+        border-radius:
+          22px;
+
+      }
+
+
+      .current-weather {
+
+        gap:
+          10px;
+
+      }
+
+
+      .current-icon {
+
+        font-size:
+          55px;
+
+      }
+
+
+      .info-grid {
+
+        grid-template-columns:
+          repeat(2,1fr);
+
+        gap:
+          10px;
+
+      }
+
+
+      .info-card {
+
+        padding:
+          17px 10px;
+
+      }
+
+
+      .forecast {
+
+        display:
+          flex;
+
+        overflow-x:
+          auto;
+
+        padding-bottom:
+          8px;
+
+      }
+
+
+      .forecast-card {
+
+        min-width:
+          130px;
+
+      }
+
+
+      .precipitation-grid {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .chart-card {
+
+        height:
+          300px;
+
+        padding:
+          15px;
+
+      }
+
+
+      .air-card {
+
+        flex-direction:
+          column;
+
+        align-items:
+          flex-start;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     Header
+========================= -->
+
+<header>
+
+  <div class="header-inner">
+
+    <div class="logo">
+      🌤️ سایت اختصاصی هواشناسی انجمن ارومیه
+    </div>
+
+    <div class="live">
+
+      <span class="live-dot"></span>
+
+      اطلاعات زنده
+
+    </div>
+
+  </div>
+
+</header>
+
+
+
+<main>
+
+
+  <div
+    id="error"
+    class="error"
+  ></div>
+
+
+  <!-- =========================
+       وضعیت فعلی
+  ========================= -->
+
+  <section class="hero">
+
+    <h1>
+      هواشناسی ارومیه
+    </h1>
+
+    <div class="hero-subtitle">
+      وضعیت لحظه‌ای آب‌وهوا و پیش‌بینی روزهای آینده
+    </div>
+
+
+    <div class="current-weather">
+
+      <div
+        id="currentIcon"
+        class="current-icon"
+      >
+        🌤️
+      </div>
+
+
+      <div>
+
+        <div
+          id="temperature"
+          class="temperature"
+        >
+          --°
+        </div>
+
+
+        <div
+          id="description"
+          class="description"
+        >
+          در حال دریافت اطلاعات...
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="last-update">
+
+      آخرین بروزرسانی:
+      <span id="lastUpdate">
+        --
+      </span>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       اطلاعات فعلی
+  ========================= -->
+
+  <section class="info-grid">
+
+
+    <div class="info-card">
+
+      <div class="info-icon">
+        🌡️
+      </div>
+
+      <div class="info-label">
+        دمای احساس‌شده
+      </div>
+
+      <div
+        id="feels"
+        class="info-value"
+      >
+        --°
+      </div>
+
+    </div>
+
+
+    <div class="info-card">
+
+      <div class="info-icon">
+        💧
+      </div>
+
+      <div class="info-label">
+        رطوبت هوا
+      </div>
+
+      <div
+        id="humidity"
+        class="info-value"
+      >
+        --%
+      </div>
+
+    </div>
+
+
+    <div class="info-card">
+
+      <div class="info-icon">
+        💨
+      </div>
+
+      <div class="info-label">
+        سرعت باد
+      </div>
+
+      <div
+        id="wind"
+        class="info-value"
+      >
+        -- km/h
+      </div>
+
+    </div>
+
+
+    <div class="info-card">
+
+      <div class="info-icon">
+        🧭
+      </div>
+
+      <div class="info-label">
+        جهت باد
+      </div>
+
+      <div
+        id="windDirection"
+        class="info-value"
+      >
+        --
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       نمودار دما
+  ========================= -->
+
+  <h2 class="section-title">
+    🌡️ تغییرات دما در ۲۴ ساعت آینده
+  </h2>
+
+
+  <section class="chart-card">
+
+    <canvas
+      id="temperatureChart"
+    ></canvas>
+
+  </section>
+
+
+
+  <!-- =========================
+       پیش بینی ۷ روز
+  ========================= -->
+
+  <h2 class="section-title">
+    📅 پیش‌بینی ۷ روز آینده
+  </h2>
+
+
+  <section
+    id="forecast"
+    class="forecast"
+  >
+
+    <div class="loading">
+      در حال دریافت اطلاعات...
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       بارش
+  ========================= -->
+
+  <h2 class="section-title">
+    🌧️ وضعیت بارش
+  </h2>
+
+
+  <section class="precipitation-grid">
+
+
+    <div class="precipitation-card">
+
+      <div class="precipitation-title">
+        🌧️ احتمال بارش امروز
+      </div>
+
+      <div
+        id="rainToday"
+        class="precipitation-value"
+      >
+        --%
+      </div>
+
+      <div class="precipitation-description">
+        احتمال بارش باران
+      </div>
+
+    </div>
+
+
+    <div class="precipitation-card">
+
+      <div class="precipitation-title">
+        ❄️ احتمال برف امروز
+      </div>
+
+      <div
+        id="snowToday"
+        class="precipitation-value"
+      >
+        --%
+      </div>
+
+      <div class="precipitation-description">
+        احتمال بارش برف
+      </div>
+
+    </div>
+
+
+    <div class="precipitation-card">
+
+      <div class="precipitation-title">
+        🌧️ مجموع بارش امروز
+      </div>
+
+      <div
+        id="precipitationToday"
+        class="precipitation-value"
+      >
+        -- mm
+      </div>
+
+      <div class="precipitation-description">
+        میزان بارش پیش‌بینی‌شده
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       کیفیت هوا
+  ========================= -->
+
+  <h2 class="section-title">
+    🫁 وضعیت آلودگی هوا
+  </h2>
+
+
+  <section class="air-card">
+
+    <div>
+
+      <div class="air-title">
+        شاخص کیفیت هوا
+      </div>
+
+      <div
+        id="airDescription"
+        class="air-description"
+      >
+        در حال دریافت اطلاعات...
+      </div>
+
+    </div>
+
+
+    <div
+      id="airStatus"
+      class="air-status"
+    >
+      --
+    </div>
+
+  </section>
+
+
+</main>
+
+
+
+<!-- =========================
+     Footer
+========================= -->
+
+<footer>
+
+  <strong>
+    سایت اختصاصی هواشناسی انجمن ارومیه
+  </strong>
+
+  <br><br>
+
+  دما • باد • بارش • رطوبت • پیش‌بینی هوا
+
+  <br><br>
+
+  <span id="year"></span>
+
+</footer>
+
+
+
+<script>
+
+
+/* =========================================
+   مختصات ارومیه
+========================================= */
+
+const LAT = 37.5527;
+
+const LON = 45.0761;
+
+
+
+/* =========================================
+   نمودار
+========================================= */
+
+let temperatureChart;
+
+
+
+/* =========================================
+   API هواشناسی
+========================================= */
+
+const weatherURL =
+
+  `https://api.open-meteo.com/v1/forecast` +
+
+  `?latitude=${LAT}` +
+
+  `&longitude=${LON}` +
+
+  `&current=` +
+
+  `temperature_2m,` +
+
+  `relative_humidity_2m,` +
+
+  `apparent_temperature,` +
+
+  `wind_speed_10m,` +
+
+  `wind_direction_10m,` +
+
+  `weather_code` +
+
+  `&hourly=` +
+
+  `temperature_2m,` +
+
+  `relative_humidity_2m,` +
+
+  `wind_speed_10m,` +
+
+  `wind_direction_10m,` +
+
+  `precipitation_probability,` +
+
+  `rain,` +
+
+  `snowfall` +
+
+  `&daily=` +
+
+  `weather_code,` +
+
+  `temperature_2m_max,` +
+
+  `temperature_2m_min,` +
+
+  `wind_speed_10m_max,` +
+
+  `wind_direction_10m_dominant,` +
+
+  `precipitation_probability_max,` +
+
+  `rain_sum,` +
+
+  `snowfall_sum,` +
+
+  `precipitation_sum` +
+
+  `&timezone=Asia%2FTehran` +
+
+  `&forecast_days=7`;
+
+
+
+/* =========================================
+   API آلودگی هوا
+========================================= */
+
+const airURL =
+
+  `https://air-quality-api.open-meteo.com/v1/air-quality` +
+
+  `?latitude=${LAT}` +
+
+  `&longitude=${LON}` +
+
+  `&current=european_aqi` +
+
+  `&timezone=Asia%2FTehran`;
+
+
+
+/* =========================================
+   وضعیت هوا
+========================================= */
+
+function weatherText(code) {
+
+  const weather = {
+
+    0: ["☀️", "صاف"],
+
+    1: ["🌤️", "عمدتاً صاف"],
+
+    2: ["⛅", "نیمه‌ابری"],
+
+    3: ["☁️", "ابری"],
+
+    45: ["🌫️", "مه‌آلود"],
+
+    48: ["🌫️", "مه یخ‌زده"],
+
+    51: ["🌦️", "نم‌نم باران"],
+
+    53: ["🌦️", "باران خفیف"],
+
+    55: ["🌧️", "باران"],
+
+    61: ["🌧️", "باران خفیف"],
+
+    63: ["🌧️", "باران"],
+
+    65: ["🌧️", "باران شدید"],
+
+    71: ["🌨️", "برف خفیف"],
+
+    73: ["🌨️", "برف"],
+
+    75: ["❄️", "برف شدید"],
+
+    77: ["❄️", "دانه‌های برف"],
+
+    80: ["🌦️", "رگبار"],
+
+    81: ["🌧️", "رگبار باران"],
+
+    82: ["⛈️", "رگبار شدید"],
+
+    85: ["🌨️", "رگبار برف"],
+
+    86: ["❄️", "رگبار برف شدید"],
+
+    95: ["⛈️", "رعدوبرق"],
+
+    96: ["⛈️", "رعدوبرق و تگرگ"],
+
+    99: ["⛈️", "رعدوبرق شدید"]
+
+  };
+
+
+  return (
+    weather[code] ||
+    ["🌡️", "نامشخص"]
+  );
+
+}
+
+
+
+/* =========================================
+   جهت باد
+========================================= */
+
+function windDirection(degrees) {
+
+  const directions = [
+
+    "شمال",
+
+    "شمال‌شرق",
+
+    "شرق",
+
+    "جنوب‌شرق",
+
+    "جنوب",
+
+    "جنوب‌غرب",
+
+    "غرب",
+
+    "شمال‌غرب"
+
+  ];
+
+
+  const index =
+    Math.round(degrees / 45) % 8;
+
+
+  return directions[index];
+
+}
+
+
+
+/* =========================================
+   نام روز
+========================================= */
+
+function dayName(date, index) {
+
+  if (index === 0)
+    return "امروز";
+
+  if (index === 1)
+    return "فردا";
+
+
+  return new Date(date)
+    .toLocaleDateString(
+      "fa-IR",
+      {
+        weekday: "long"
+      }
+    );
+
+}
+
+
+
+/* =========================================
+   دریافت هواشناسی
+========================================= */
+
+async function getWeather() {
+
+  try {
+
+    const response =
+      await fetch(weatherURL);
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "دریافت اطلاعات هواشناسی با مشکل مواجه شد."
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    const current =
+      data.current;
+
+
+    const [
+      icon,
+      description
+    ] =
+      weatherText(
+        current.weather_code
+      );
+
+
+    /* دما */
+
+    document
+      .getElementById("temperature")
+      .textContent =
+      `${Math.round(
+        current.temperature_2m
+      )}°`;
+
+
+    /* آیکون */
+
+    document
+      .getElementById("currentIcon")
+      .textContent =
+      icon;
+
+
+    /* وضعیت */
+
+    document
+      .getElementById("description")
+      .textContent =
+      description;
+
+
+    /* احساس */
+
+    document
+      .getElementById("feels")
+      .textContent =
+      `${Math.round(
+        current.apparent_temperature
+      )}°`;
+
+
+    /* رطوبت */
+
+    document
+      .getElementById("humidity")
+      .textContent =
+      `${current.relative_humidity_2m}%`;
+
+
+    /* باد */
+
+    document
+      .getElementById("wind")
+      .textContent =
+      `${Math.round(
+        current.wind_speed_10m
+      )} km/h`;
+
+
+    /* جهت باد */
+
+    document
+      .getElementById("windDirection")
+      .textContent =
+      windDirection(
+        current.wind_direction_10m
+      );
+
+
+    /* زمان */
+
+    document
+      .getElementById("lastUpdate")
+      .textContent =
+      new Date()
+        .toLocaleTimeString(
+          "fa-IR"
+        );
+
+
+    /* پیش بینی */
+
+    renderForecast(
+      data.daily
+    );
+
+
+    /* نمودار */
+
+    createTemperatureChart(
+      data.hourly
+    );
+
+
+    /* بارش */
+
+    renderPrecipitation(
+      data.daily
+    );
+
+
+  }
+
+  catch(error) {
+
+    showError(
+      error.message
+    );
+
+  }
+
+}
+
+
+
+/* =========================================
+   پیش بینی ۷ روز
+========================================= */
+
+function renderForecast(daily) {
+
+  const container =
+    document.getElementById(
+      "forecast"
+    );
+
+
+  container.innerHTML = "";
+
+
+  daily.time.forEach(
+    (date,index) => {
+
+
+      const [
+        icon,
+        description
+      ] =
+      weatherText(
+        daily.weather_code[index]
+      );
+
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "forecast-card";
+
+
+      const rain =
+        daily.rain_sum[index];
+
+
+  
