@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>انجمن سازندگان ذیصلاح ساختمان شهرستان ارومیه</title>
+<style>
+body{font-family:tahoma;margin:0;background:#f4f4f4;color:#222}
+header{background:#145a8d;color:#fff;padding:15px;text-align:center}
+main{max-width:900px;margin:auto;padding:10px}
+.box{background:#fff;margin:10px 0;padding:15px;border-radius:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.item{text-align:center;background:#eef6ff;padding:15px;border-radius:10px}
+.days{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+button,input{width:100%;padding:10px;margin:4px}
+#panel{position:fixed;left:-280px;top:0;width:250px;height:100%;background:white;padding:15px;transition:.3s}
+#panel.open{left:0}
+#menu{position:fixed;left:10px;top:10px}
+.hide{display:none}
+img{max-width:100%}
+</style>
+</head>
+<body>
+
+<button id="menu">مدیریت</button>
+<div id="panel">
+<h3>پنل مدیریت</h3>
+<input id="u" placeholder="admin">
+<input id="p" type="password" placeholder="1234">
+<button onclick="login()">ورود</button>
+<div id="admin" class="hide">
+<input id="bi" placeholder="آدرس بنر">
+<input id="bl" placeholder="لینک تبلیغ">
+<button onclick="save()">ذخیره</button>
+</div>
+</div>
+
+<header>
+<h2>انجمن سازندگان ذیصلاح ساختمان شهرستان ارومیه</h2>
+</header>
+
+<main>
+<div class="box">
+<h3>هواشناسی آنلاین</h3>
+<div class="grid">
+<div class="item">دما<br><b id="t">...</b></div>
+<div class="item">رطوبت<br><b id="h">...</b></div>
+<div class="item">باد<br><b id="w">...</b></div>
+<div class="item">آلودگی<br><b>قابل قبول</b></div>
+</div>
+</div>
+
+<div class="box">
+<h3>۷ روز آینده</h3>
+<div id="days" class="days"></div>
+</div>
+
+<div class="box">
+<h3>تبلیغات</h3>
+<a id="link"><img id="banner"></a>
+</div>
+
+<div class="box">بازدید: <b id="v"></b></div>
+</main>
+
+<script>
+fetch('https://api.open-meteo.com/v1/forecast?latitude=37.55&longitude=45.07&current=temperature_2m,relative_humidity_2m,windspeed_10m&daily=temperature_2m_max,windspeed_10m_max,precipitation_sum&timezone=auto')
+.then(x=>x.json()).then(d=>{
+t.innerHTML=d.current.temperature_2m+'°C';
+h.innerHTML=d.current.relative_humidity_2m+'%';
+w.innerHTML=d.current.windspeed_10m+' km/h';
+let s='';
+for(let i=0;i<7;i++)s+='<div class="box">'+d.daily.time[i]+'<br>دما '+d.daily.temperature_2m_max[i]+'<br>باد '+d.daily.windspeed_10m_max[i]+'<br>بارش '+d.daily.precipitation_sum[i]+'</div>';
+days.innerHTML=s;
+});
+menu.onclick=()=>panel.classList.toggle('open');
+function login(){if(u.value=='admin'&&p.value=='1234')admin.classList.remove('hide')}
+function save(){localStorage.i=bi.value;localStorage.l=bl.value;load()}
+function load(){banner.src=localStorage.i||'';link.href=localStorage.l||'#'}
+load();
+v.innerHTML=++localStorage.v;
+</script>
+</body>
+</html>
