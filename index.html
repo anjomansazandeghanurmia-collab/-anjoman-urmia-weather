@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>انجمن سازندگان ذیصلاح ساختمان شهرستان ارومیه</title>
+
+<style>
+*{
+box-sizing:border-box;
+font-family:tahoma,Arial;
+}
+
+body{
+margin:0;
+background:#eef3f8;
+color:#222;
+}
+
+.top{
+background:white;
+padding:10px;
+text-align:center;
+font-size:14px;
+color:#555;
+border-bottom:1px solid #ddd;
+}
+
+.header{
+background:linear-gradient(135deg,#1565c0,#42a5f5);
+padding:30px 15px;
+color:white;
+text-align:center;
+}
+
+.header h1{
+margin:0;
+font-size:25px;
+}
+
+.header p{
+margin:10px 0 0;
+}
+
+.container{
+max-width:1100px;
+margin:-25px auto 30px;
+padding:15px;
+}
+
+.main-card{
+background:white;
+border-radius:25px;
+padding:25px;
+box-shadow:0 10px 30px #0002;
+}
+
+.city{
+font-size:22px;
+font-weight:bold;
+}
+
+.date{
+color:#777;
+margin-top:5px;
+}
+
+.weather-main{
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+margin-top:25px;
+}
+
+.temp{
+font-size:70px;
+font-weight:bold;
+color:#1565c0;
+}
+
+.status{
+font-size:20px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:15px;
+margin-top:25px;
+}
+
+.info{
+background:#f5f8fc;
+padding:20px;
+border-radius:18px;
+text-align:center;
+}
+
+.info b{
+display:block;
+font-size:28px;
+margin-bottom:10px;
+}
+
+.section{
+margin-top:25px;
+background:white;
+border-radius:25px;
+padding:20px;
+box-shadow:0 5px 20px #0001;
+}
+
+.section h2{
+margin-top:0;
+font-size:20px;
+}
+
+.forecast{
+display:flex;
+gap:12px;
+overflow-x:auto;
+}
+
+.day{
+min-width:140px;
+background:#f5f8fc;
+border-radius:18px;
+padding:15px;
+text-align:center;
+}
+
+.air{
+text-align:center;
+padding:20px;
+border-radius:20px;
+background:#f5f8fc;
+font-size:18px;
+}
+
+.good{
+color:green;
+font-weight:bold;
+}
+
+.warn{
+color:#d68b00;
+font-weight:bold;
+}
+
+.bad{
+color:red;
+font-weight:bold;
+}
+
+.loading{
+text-align:center;
+padding:20px;
+}
+
+@media(max-width:600px){
+.temp{
+font-size:55px;
+}
+.header h1{
+font-size:20px;
+}
+}
+</style>
+
+</head>
+
+<body>
+
+
+<div class="top">
+انجمن سازندگان ذیصلاح ساختمان شهرستان ارومیه
+</div>
+
+
+<div class="header">
+
+<h1>هواشناسی آنلاین ارومیه</h1>
+
+<p>دمای لحظه‌ای، باد، بارش و کیفیت هوا</p>
+
+</div>
+
+
+
+<div class="container">
+
+
+<div class="main-card">
+
+<div class="city">
+📍 ارومیه
+</div>
+
+<div class="date" id="date"></div>
+
+
+<div id="current" class="loading">
+در حال دریافت اطلاعات...
+</div>
+
+
+</div>
+
+
+
+<div class="section">
+
+<h2>🌫 کیفیت هوا</h2>
+
+<div id="air" class="air">
+در حال دریافت شاخص آلودگی...
+</div>
+
+</div>
+
+
+
+<div class="section">
+
+<h2>📅 پیش‌بینی روزهای آینده</h2>
+
+<div id="forecast" class="forecast"></div>
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+const lat=37.5527;
+const lon=45.0761;
+
+
+document.getElementById("date").innerHTML=
+new Date().toLocaleDateString("fa-IR");
+
+
+
+fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&timezone=Asia%2FTehran`)
+
+.then(r=>r.json())
+
+.then(d=>{
+
+
+let c=d.current;
+
+
+document.getElementById("current").innerHTML=`
+
+<div class="weather-main">
+
+<div>
+
+<div class="temp">${c.temperature_2m}°C</div>
+
+<div class="status">
+وضعیت فعلی هوا
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="cards">
+
+
+<div class="info">
+<b>💧</b>
+رطوبت
+<br>
+${c.relative_humidity_2m}٪
+</div>
+
+
+<div class="info">
+<b>💨</b>
+سرعت باد
+<br>
+${c.wind_speed_10m} km/h
+</div>
+
+
+<div class="info">
+<b>🌧</b>
+بارش
+<br>
+${c.precipitation} mm
+</div>
+
+
+</div>
+
+`;
+
+
+
+let html="";
+
+
+for(let i=0;i<7;i++){
+
+html+=`
+
+<div class="day">
+
+<b>${d.daily.time[i]}</b>
+
+<br><br>
+
+🌡 ${d.daily.temperature_2m_max[i]}°
+
+<br>
+
+⬇ ${d.daily.temperature_2m_min[i]}°
+
+<br><br>
+
+🌧 ${d.daily.precipitation_sum[i]} mm
+
+<br>
+
+💨 ${d.daily.wind_speed_10m_max[i]}
+
+</div>
+
+`;
+
+}
+
+
+document.getElementById("forecast").innerHTML=html;
+
+
+});
+
+
+
+
+// air quality
+
+
+fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=us_aqi,pm10,pm2_5&timezone=Asia%2FTehran`)
+
+.then(r=>r.json())
+
+.then(d=>{
+
+
+let a=d.current;
+
+let text="";
+
+let cls="";
+
+
+if(a.us_aqi<=50){
+
+text="قابل قبول";
+cls="good";
+
+}
+
+else if(a.us_aqi<=100){
+
+text="متوسط";
+cls="warn";
+
+}
+
+else{
+
+text="ناسالم";
+cls="bad";
+
+}
+
+
+
+document.getElementById("air").innerHTML=`
+
+<div class="${cls}">
+شاخص کیفیت هوا: ${a.us_aqi}
+<br>
+${text}
+</div>
+
+<br>
+
+PM2.5 : ${a.pm2_5}
+
+<br>
+
+PM10 : ${a.pm10}
+
+`;
+
+});
+
+
+</script>
+
+
+</body>
+  </html>
